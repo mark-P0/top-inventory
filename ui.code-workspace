@@ -37,6 +37,7 @@
         },
         "editor.codeActionsOnSave": {
             "source.organizeImports.biome": "explicit"
-        }
+        },
+        "editor.tabSize": 2
     }
 }
