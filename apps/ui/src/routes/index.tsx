@@ -1,43 +1,13 @@
+import { categories } from "@/lib/fetchers";
 import { cn } from "@/lib/tailwind";
 import { createFileRoute } from "@tanstack/react-router";
 import { ThemeButton } from "./-components/ThemeButton";
-
-const SAMPLE_DATA = (() => {
-	type Category = {
-		id: string;
-		name: string;
-		slug: string;
-		item_type_ct: number;
-		total_item_ct: number;
-	};
-
-	function randomInteger() {
-		const array = crypto.getRandomValues(new Uint8Array(1));
-		return array[0];
-	}
-
-	const categories = Array.from({ length: 8 }, (_, idx) => {
-		const category: Category = {
-			id: crypto.randomUUID(),
-			name: `Category ${idx}`,
-			slug: `category-${idx}`,
-			item_type_ct: randomInteger(),
-			total_item_ct: randomInteger(),
-		};
-
-		return category;
-	});
-
-	return { categories };
-})();
 
 export const Route = createFileRoute("/")({
 	component: App,
 });
 
 function App() {
-	const { categories } = SAMPLE_DATA;
-
 	return (
 		<main
 			className={cn(
