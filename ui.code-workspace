@@ -39,5 +39,11 @@
             "source.organizeImports.biome": "explicit"
         },
         "editor.tabSize": 2
+    },
+    "extensions": {
+        "recommendations": [
+            "biomejs.biome",
+            "bradlc.vscode-tailwindcss"
+        ]
     }
 }
