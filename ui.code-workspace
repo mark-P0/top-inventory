@@ -38,7 +38,10 @@
         "editor.codeActionsOnSave": {
             "source.organizeImports.biome": "explicit"
         },
-        "editor.tabSize": 2
+        "editor.tabSize": 2,
+        "files.associations": {
+            "*.css": "tailwindcss"
+        },
     },
     "extensions": {
         "recommendations": [
