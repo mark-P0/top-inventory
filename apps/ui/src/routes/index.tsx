@@ -1,3 +1,4 @@
+import { cn } from "@/lib/tailwind";
 import { createFileRoute } from "@tanstack/react-router";
 import { ThemeButton } from "./-components/ThemeButton";
 
@@ -38,7 +39,14 @@ function App() {
 	const { categories } = SAMPLE_DATA;
 
 	return (
-		<main className="min-h-screen dark:text-stone-50 dark:bg-stone-700 p-6 space-y-6">
+		<main
+			className={cn(
+				"min-h-screen",
+				"bg-stone-200 text-stone-700",
+				"dark:bg-stone-700 dark:text-stone-200",
+				"p-6 space-y-6",
+			)}
+		>
 			<header className="flex items-center justify-between gap-3">
 				<div>
 					<h1>Categories</h1>
@@ -53,7 +61,7 @@ function App() {
 			<ol className="grid grid-cols-3 gap-3">
 				{categories.map((category) => (
 					<li key={category.id}>
-						<article className="dark:bg-stone-500">
+						<article className="bg-stone-300 dark:bg-stone-600">
 							<pre className="overflow-hidden">
 								{JSON.stringify(category, null, 2)}
 							</pre>
