@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ThemeButton } from "./-components/ThemeButton";
 
 const SAMPLE_DATA = (() => {
 	type Category = {
@@ -42,6 +43,10 @@ function App() {
 				<div>
 					<h1>Categories</h1>
 					<p>Inventory App</p>
+				</div>
+
+				<div>
+					<ThemeButton />
 				</div>
 			</header>
 

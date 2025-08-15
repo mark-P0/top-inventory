@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/** https://tailwindcss.com/docs/dark-mode#with-system-theme-support */
+@custom-variant dark (&:where(.dark, .dark *));
+
 body {
 	@apply m-0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
