@@ -1,6 +1,6 @@
 import { randomInteger } from "./utils";
 
-type Category = {
+export type Category = {
 	id: string;
 	name: string;
 	slug: string;
