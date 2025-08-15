@@ -1,7 +1,7 @@
 import { type Category, categories } from "@/lib/fetchers";
 import { cn } from "@/lib/tailwind";
 import { createFileRoute } from "@tanstack/react-router";
-import { ThemeButton } from "./-components/ThemeButton";
+import { ThemeButton } from "../lib/theme/ThemeButton";
 
 export const Route = createFileRoute("/")({
 	component: App,

@@ -1,4 +1,4 @@
-import { useTheme } from "@/lib/theme";
+import { useTheme } from "./useTheme";
 
 export function ThemeButton() {
 	const { theme, cycleTheme } = useTheme();
