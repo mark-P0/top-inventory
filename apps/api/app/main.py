@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 
+from app.routes.categories import CategoriesRouter
+
 app = FastAPI()
 
-
-@app.get("/")
-def hello():
-    return dict(hello="world")
+app.include_router(CategoriesRouter)
