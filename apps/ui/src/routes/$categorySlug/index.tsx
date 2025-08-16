@@ -1,11 +1,19 @@
+import { getCategoryBySlug } from "@/core/api/categories";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/$categorySlug/")({
-	component: RouteComponent,
+	loader: async ({ params }) => {
+		const { categorySlug } = params;
+
+		const category = await getCategoryBySlug(categorySlug);
+
+		return { category };
+	},
+	component: CategoryScreen,
 });
 
-function RouteComponent() {
-	const params = Route.useParams();
+function CategoryScreen() {
+	const { category } = Route.useLoaderData();
 
-	return <pre>{JSON.stringify(params, null, 2)}</pre>;
+	return <pre>{JSON.stringify(category, null, 2)}</pre>;
 }

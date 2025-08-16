@@ -23,3 +23,13 @@ const sampleCategories = Array.from({ length: 8 }, (_, idx) => {
 export async function getAllCategories() {
 	return sampleCategories;
 }
+
+export async function getCategoryBySlug(slug: string) {
+	for (const category of sampleCategories) {
+		if (category.slug === slug) {
+			return category;
+		}
+	}
+
+	return null;
+}
