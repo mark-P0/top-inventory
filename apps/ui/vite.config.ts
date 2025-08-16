@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 import { resolve } from 'node:path'
+import { env } from './src/core/env'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -21,4 +22,9 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
+  server: {
+    proxy: {
+      '/api': env.API_URL
+    }
+  }
 })
