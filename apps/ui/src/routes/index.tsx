@@ -1,14 +1,21 @@
-import { type Category, categories } from "@/core/api/categories";
+import { type Category, getAllCategories } from "@/core/api/categories";
 import { Screen } from "@/core/components/Screen";
 import { cn } from "@/lib/tailwind";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import type { PropsWithChildren } from "react";
 
 export const Route = createFileRoute("/")({
-	component: App,
+	loader: async () => {
+		const categories = await getAllCategories();
+
+		return { categories };
+	},
+	component: CategoriesScreen,
 });
 
-function App() {
+function CategoriesScreen() {
+	const { categories } = Route.useLoaderData();
+
 	return (
 		<Screen title="Categories">
 			<ol className="grid lg:grid-cols-5 gap-3">

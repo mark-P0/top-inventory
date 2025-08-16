@@ -8,7 +8,7 @@ export type Category = {
 	total_item_ct: number;
 };
 
-export const categories = Array.from({ length: 8 }, (_, idx) => {
+const sampleCategories = Array.from({ length: 8 }, (_, idx) => {
 	const category: Category = {
 		id: crypto.randomUUID(),
 		name: `Category ${idx}`,
@@ -19,3 +19,7 @@ export const categories = Array.from({ length: 8 }, (_, idx) => {
 
 	return category;
 });
+
+export async function getAllCategories() {
+	return sampleCategories;
+}
