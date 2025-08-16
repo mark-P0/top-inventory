@@ -6,6 +6,7 @@ import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
+import { ErrorScreen } from "./core/errors/ErrorScreen.tsx";
 import { NotFoundScreen } from "./core/not-found/NotFoundScreen.tsx";
 import reportWebVitals from "./reportWebVitals.ts";
 
@@ -17,6 +18,7 @@ const router = createRouter({
 	scrollRestoration: true,
 	defaultStructuralSharing: true,
 	defaultPreloadStaleTime: 0,
+	defaultErrorComponent: ErrorScreen,
 	defaultNotFoundComponent: NotFoundScreen,
 });
 
