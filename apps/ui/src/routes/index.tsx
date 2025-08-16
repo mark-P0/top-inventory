@@ -6,7 +6,12 @@ import type { PropsWithChildren } from "react";
 
 export const Route = createFileRoute("/")({
 	loader: async () => {
-		const result = await getCategories();
+		const result = await getCategories({
+			query: {
+				"include[item_type_ct]": true,
+				"include[total_item_ct]": true,
+			},
+		});
 		if (result.error) {
 			throw notFound();
 		}
