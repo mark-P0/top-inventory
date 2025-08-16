@@ -16,6 +16,7 @@ export function Screen(
 				"min-h-screen",
 				"bg-stone-200 text-stone-700",
 				"dark:bg-stone-700 dark:text-stone-200",
+				"selection:text-amber-800 selection:bg-amber-400",
 				"p-6 space-y-6",
 				props.className,
 			)}
