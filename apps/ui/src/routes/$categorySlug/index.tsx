@@ -1,11 +1,15 @@
 import { getCategoryBySlug } from "@/core/api/categories";
-import { createFileRoute } from "@tanstack/react-router";
+import { Screen } from "@/core/components/Screen";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/$categorySlug/")({
 	loader: async ({ params }) => {
 		const { categorySlug } = params;
 
 		const category = await getCategoryBySlug(categorySlug);
+		if (category === null) {
+			throw notFound();
+		}
 
 		return { category };
 	},
@@ -15,5 +19,5 @@ export const Route = createFileRoute("/$categorySlug/")({
 function CategoryScreen() {
 	const { category } = Route.useLoaderData();
 
-	return <pre>{JSON.stringify(category, null, 2)}</pre>;
+	return <Screen title={category.name}>hello</Screen>;
 }
