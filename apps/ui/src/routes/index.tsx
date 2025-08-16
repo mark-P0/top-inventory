@@ -1,4 +1,4 @@
-import { type Category, getAllCategories } from "@/core/api/categories";
+import { type Category, getCategories } from "@/core/api/categories";
 import { Screen } from "@/core/components/Screen";
 import { cn } from "@/lib/tailwind";
 import { Link, createFileRoute } from "@tanstack/react-router";
@@ -6,7 +6,7 @@ import type { PropsWithChildren } from "react";
 
 export const Route = createFileRoute("/")({
 	loader: async () => {
-		const categories = await getAllCategories();
+		const categories = await getCategories();
 
 		return { categories };
 	},

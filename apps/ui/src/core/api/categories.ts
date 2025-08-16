@@ -18,7 +18,7 @@ const sampleCategories = Array.from({ length: 8 }, (_, idx) => {
 	return category;
 });
 
-export async function getAllCategories() {
+export async function getCategories() {
 	return sampleCategories;
 }
 
