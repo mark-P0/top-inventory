@@ -20,7 +20,7 @@ function CategoriesScreen() {
 		<Screen title="Categories">
 			<ol className="grid lg:grid-cols-5 gap-3">
 				{categories.map((category) => (
-					<li key={category.id}>
+					<li key={category.name_id}>
 						<CategoryLink category={category}>
 							<CategoryCard category={category} />
 						</CategoryLink>

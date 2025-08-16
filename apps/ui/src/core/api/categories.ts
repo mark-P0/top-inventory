@@ -1,7 +1,6 @@
 import { randomInteger } from "@/lib/utils";
 
 export type Category = {
-	id: string;
 	name: string;
 	name_id: string;
 	item_type_ct: number;
@@ -10,7 +9,6 @@ export type Category = {
 
 const sampleCategories = Array.from({ length: 8 }, (_, idx) => {
 	const category: Category = {
-		id: crypto.randomUUID(),
 		name: `Category ${idx}`,
 		name_id: `category-${idx}`,
 		item_type_ct: randomInteger(),
