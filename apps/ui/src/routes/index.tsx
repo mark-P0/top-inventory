@@ -1,5 +1,5 @@
+import { type Category, categories } from "@/core/fetchers";
 import { ThemeButton } from "@/core/theme/ThemeButton";
-import { type Category, categories } from "@/lib/fetchers";
 import { cn } from "@/lib/tailwind";
 import { createFileRoute } from "@tanstack/react-router";
 

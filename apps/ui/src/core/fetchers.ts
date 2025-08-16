@@ -1,4 +1,4 @@
-import { randomInteger } from "./utils";
+import { randomInteger } from "@/lib/utils";
 
 export type Category = {
 	id: string;
