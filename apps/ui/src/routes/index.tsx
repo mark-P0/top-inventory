@@ -1,5 +1,5 @@
 import { type Category, categories } from "@/core/api/categories";
-import { ThemeButton } from "@/core/theme/ThemeButton";
+import { Screen } from "@/core/components/Screen";
 import { cn } from "@/lib/tailwind";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -9,32 +9,7 @@ export const Route = createFileRoute("/")({
 
 function App() {
 	return (
-		<main
-			className={cn(
-				"min-h-screen",
-				"bg-stone-200 text-stone-700",
-				"dark:bg-stone-700 dark:text-stone-200",
-				"p-6 space-y-6",
-			)}
-		>
-			<header className="flex items-center justify-between gap-3">
-				<div className="space-y-1">
-					<h1 className="text-3xl font-bold">Categories</h1>
-					<p
-						className={cn(
-							"text-stone-500 dark:text-stone-400",
-							"text-xs uppercase tracking-wide",
-						)}
-					>
-						Inventory App
-					</p>
-				</div>
-
-				<div>
-					<ThemeButton />
-				</div>
-			</header>
-
+		<Screen title="Categories">
 			<ol className="grid lg:grid-cols-5 gap-3">
 				{categories.map((category) => (
 					<li key={category.id}>
@@ -42,7 +17,7 @@ function App() {
 					</li>
 				))}
 			</ol>
-		</main>
+		</Screen>
 	);
 }
 
