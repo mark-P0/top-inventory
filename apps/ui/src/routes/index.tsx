@@ -1,7 +1,8 @@
 import { type Category, categories } from "@/core/api/categories";
 import { Screen } from "@/core/components/Screen";
 import { cn } from "@/lib/tailwind";
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
+import type { PropsWithChildren } from "react";
 
 export const Route = createFileRoute("/")({
 	component: App,
@@ -13,11 +14,23 @@ function App() {
 			<ol className="grid lg:grid-cols-5 gap-3">
 				{categories.map((category) => (
 					<li key={category.id}>
-						<CategoryCard category={category} />
+						<CategoryLink category={category}>
+							<CategoryCard category={category} />
+						</CategoryLink>
 					</li>
 				))}
 			</ol>
 		</Screen>
+	);
+}
+
+function CategoryLink(props: PropsWithChildren<{ category: Category }>) {
+	const { category } = props;
+
+	return (
+		<Link to="/$categorySlug" params={{ categorySlug: category.slug }}>
+			{props.children}
+		</Link>
 	);
 }
 
