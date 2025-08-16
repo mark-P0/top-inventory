@@ -1,4 +1,4 @@
-import { getCategoryBySlug } from "@/core/api/categories";
+import { getCategory } from "@/core/api/categories";
 import { Screen } from "@/core/components/Screen";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
@@ -6,7 +6,7 @@ export const Route = createFileRoute("/$categoryNameId/")({
 	loader: async ({ params }) => {
 		const { categoryNameId } = params;
 
-		const category = await getCategoryBySlug(categoryNameId);
+		const category = await getCategory({ nameId: categoryNameId });
 		if (category === null) {
 			throw notFound();
 		}

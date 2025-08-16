@@ -22,9 +22,15 @@ export async function getAllCategories() {
 	return sampleCategories;
 }
 
-export async function getCategoryBySlug(slug: string) {
+export async function getCategory(filter?: {
+	nameId?: string;
+}) {
 	for (const category of sampleCategories) {
-		if (category.name_id === slug) {
+		const isMatchingFilter = [filter?.nameId === category.name_id].every(
+			Boolean,
+		);
+
+		if (isMatchingFilter) {
 			return category;
 		}
 	}
