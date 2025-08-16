@@ -95,5 +95,5 @@ export type GetCategoriesResponses = {
 export type GetCategoriesResponse2 = GetCategoriesResponses[keyof GetCategoriesResponses];
 
 export type ClientOptions = {
-    baseUrl: 'http://localhost:8000' | (string & {});
+    baseUrl: `${string}://${string}/api` | (string & {});
 };
