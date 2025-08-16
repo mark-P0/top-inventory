@@ -18,7 +18,9 @@ const router = createRouter({
 	scrollRestoration: true,
 	defaultStructuralSharing: true,
 	defaultPreloadStaleTime: 0,
-	defaultErrorComponent: ErrorScreen,
+	defaultErrorComponent: ({ error }) => {
+		return <ErrorScreen errorMsg={String(error)} />;
+	},
 	defaultNotFoundComponent: NotFoundScreen,
 });
 
