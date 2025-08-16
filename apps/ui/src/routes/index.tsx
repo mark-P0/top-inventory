@@ -35,7 +35,7 @@ function App() {
 				</div>
 			</header>
 
-			<ol className="grid grid-cols-3 gap-3">
+			<ol className="grid lg:grid-cols-5 gap-3">
 				{categories.map((category) => (
 					<li key={category.id}>
 						<CategoryCard category={category} />
