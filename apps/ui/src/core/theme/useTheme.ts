@@ -1,5 +1,5 @@
+import { wrappedAccess } from "@/lib/utils";
 import { useEffect, useState } from "react";
-import { wrappedAccess } from "../utils";
 
 declare global {
 	/**
