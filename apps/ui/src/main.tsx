@@ -1,11 +1,12 @@
+import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
+import { NotFoundScreen } from "./core/not-found/NotFoundScreen.tsx";
 import reportWebVitals from "./reportWebVitals.ts";
 
 // Create a new router instance
@@ -16,6 +17,7 @@ const router = createRouter({
 	scrollRestoration: true,
 	defaultStructuralSharing: true,
 	defaultPreloadStaleTime: 0,
+	defaultNotFoundComponent: NotFoundScreen,
 });
 
 // Register the router instance for type safety

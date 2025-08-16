@@ -1,10 +1,11 @@
 import { cn } from "@/lib/tailwind";
-import type { PropsWithChildren, ReactNode } from "react";
+import type { ComponentProps, PropsWithChildren, ReactNode } from "react";
 import { ThemeButton } from "../theme/ThemeButton";
 
 export function Screen(
 	props: PropsWithChildren<{
 		title: ReactNode;
+		className?: ComponentProps<"main">["className"];
 	}>,
 ) {
 	const { title } = props;
@@ -16,6 +17,7 @@ export function Screen(
 				"bg-stone-200 text-stone-700",
 				"dark:bg-stone-700 dark:text-stone-200",
 				"p-6 space-y-6",
+				props.className,
 			)}
 		>
 			<header className="flex items-center justify-between gap-3">
