@@ -7,7 +7,7 @@ import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
 import { ErrorScreen } from "./core/errors/ErrorScreen.tsx";
-import { NotFoundScreen } from "./core/not-found/NotFoundScreen.tsx";
+import { NotFoundScreen } from "./core/errors/not-found/NotFoundScreen.tsx";
 import reportWebVitals from "./reportWebVitals.ts";
 
 // Create a new router instance

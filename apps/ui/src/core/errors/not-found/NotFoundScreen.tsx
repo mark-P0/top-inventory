@@ -1,7 +1,7 @@
 import { cn } from "@/lib/tailwind";
 import { Link } from "@tanstack/react-router";
 import { Ghost } from "lucide-react";
-import { Screen } from "../components/Screen";
+import { Screen } from "../../components/Screen";
 
 export function NotFoundScreen() {
 	return (

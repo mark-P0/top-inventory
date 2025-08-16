@@ -1,12 +1,17 @@
-import { type Category, getCategories } from "@/core/api/categories";
+import { type PublicCategory, getCategories } from "@/core/api/codegen";
 import { Screen } from "@/core/components/Screen";
 import { cn } from "@/lib/tailwind";
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import type { PropsWithChildren } from "react";
 
 export const Route = createFileRoute("/")({
 	loader: async () => {
-		const categories = await getCategories();
+		const result = await getCategories();
+		if (result.error) {
+			throw notFound();
+		}
+
+		const categories = result.data.data;
 
 		return { categories };
 	},
@@ -31,7 +36,7 @@ function CategoriesScreen() {
 	);
 }
 
-function CategoryLink(props: PropsWithChildren<{ category: Category }>) {
+function CategoryLink(props: PropsWithChildren<{ category: PublicCategory }>) {
 	const { category } = props;
 
 	return (
@@ -41,8 +46,11 @@ function CategoryLink(props: PropsWithChildren<{ category: Category }>) {
 	);
 }
 
-function CategoryCard(props: { category: Category }) {
+function CategoryCard(props: { category: PublicCategory }) {
 	const { category } = props;
+
+	const itemTypeCt = category.item_type_ct ?? null;
+	const totalItemCt = category.total_item_ct ?? null;
 
 	return (
 		<article className="aspect-[4/3] bg-stone-300 dark:bg-stone-600 flex flex-col justify-between gap-3 p-3">
@@ -56,13 +64,18 @@ function CategoryCard(props: { category: Category }) {
 					"flex items-center justify-between gap-3",
 				)}
 			>
-				<p>
-					Item Types: <span className="font-bold">{category.item_type_ct}</span>
-				</p>
-				<p>
-					Total Items:{" "}
-					<span className="font-bold">{category.total_item_ct}</span>
-				</p>
+				{itemTypeCt !== null && (
+					<p>
+						Item Types:{" "}
+						<span className="font-bold">{itemTypeCt satisfies number}</span>
+					</p>
+				)}
+				{totalItemCt !== null && (
+					<p>
+						Total Items:{" "}
+						<span className="font-bold">{totalItemCt satisfies number}</span>
+					</p>
+				)}
 			</footer>
 		</article>
 	);
