@@ -35,7 +35,7 @@ function CategoryLink(props: PropsWithChildren<{ category: Category }>) {
 	const { category } = props;
 
 	return (
-		<Link to="/$categorySlug" params={{ categorySlug: category.slug }}>
+		<Link to="/$categorySlug" params={{ categorySlug: category.name_id }}>
 			{props.children}
 		</Link>
 	);
