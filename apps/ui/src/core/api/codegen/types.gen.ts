@@ -72,6 +72,10 @@ export type GetCategoriesData = {
          * Include[Total Item Ct]
          */
         'include[total_item_ct]'?: boolean;
+        /**
+         * Filter[Name Id]
+         */
+        'filter[name_id]'?: string | null;
     };
     url: '/categories/';
 };
