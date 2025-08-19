@@ -22,6 +22,7 @@ class GetCategoriesQueryRaw(BaseModel):
         bool,
         Query(alias="include[total_item_ct]"),
     ] = False
+    filter_name_id: Annotated[str | None, Query(alias="filter[name_id]")] = None
 
 
 class GetCategoriesResponse(BaseModel):

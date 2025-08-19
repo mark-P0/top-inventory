@@ -16,6 +16,11 @@ CategoriesRouter = APIRouter(prefix="/categories")
 def get_categories(query: GetCategoriesQuery) -> GetCategoriesResponse:
     def generate_data_response():
         for category in sample_categories:
+            has_name_id_filter = query.filter_name_id is not None
+            is_name_id_filter_match = query.filter_name_id == category.name_id
+            if has_name_id_filter and not is_name_id_filter_match:
+                continue
+
             item_type_ct = randint(0, 32) if query.include_item_type_ct else None
             total_item_ct = randint(0, 32) if query.include_total_item_ct else None
 
