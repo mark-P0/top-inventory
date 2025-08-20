@@ -4,7 +4,8 @@ from pydantic import BaseModel
 
 
 class Category(BaseModel):
-    id: str
+    id: int
+    uuid: str
     name_id: str
 
     name: str
@@ -12,7 +13,8 @@ class Category(BaseModel):
 
 sample_categories = [
     Category(
-        id=str(uuid4()),
+        id=idx,
+        uuid=str(uuid4()),
         name_id=f"category-{idx}",
         name=f"Category {idx}",
     )

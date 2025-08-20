@@ -9,9 +9,11 @@ from app.db.item_types import sample_item_types
 
 
 class Item(BaseModel):
-    id: str
-    category_id: str
-    item_type_id: str
+    id: int
+    uuid: str
+
+    category_id: int
+    item_type_id: int
 
     name: str
 
@@ -22,7 +24,8 @@ sample_item_type_ids = [item_type.id for item_type in sample_item_types]
 
 sample_items = [
     Item(
-        id=str(uuid4()),
+        id=idx,
+        uuid=str(uuid4()),
         category_id=random.choice(sample_category_ids),
         item_type_id=random.choice(sample_item_type_ids),
         name=f"Item {idx}",
