@@ -8,8 +8,8 @@ export const Route = createFileRoute("/")({
 	loader: async () => {
 		const result = await getCategories({
 			query: {
-				"include[item_type_ct]": true,
-				"include[total_item_ct]": true,
+				"include[item_types]": true,
+				"include[items]": true,
 			},
 		});
 		if (result.error) {
@@ -54,8 +54,8 @@ function CategoryLink(props: PropsWithChildren<{ category: PublicCategory }>) {
 function CategoryCard(props: { category: PublicCategory }) {
 	const { category } = props;
 
-	const itemTypeCt = category.item_type_ct ?? null;
-	const totalItemCt = category.total_item_ct ?? null;
+	const itemTypeCt = category.item_types.length;
+	const totalItemCt = category.items.length;
 
 	return (
 		<article className="aspect-[4/3] bg-stone-300 dark:bg-stone-600 flex flex-col justify-between gap-3 p-3">
@@ -69,18 +69,13 @@ function CategoryCard(props: { category: PublicCategory }) {
 					"flex items-center justify-between gap-3",
 				)}
 			>
-				{itemTypeCt !== null && (
-					<p>
-						Item Types:{" "}
-						<span className="font-bold">{itemTypeCt satisfies number}</span>
-					</p>
-				)}
-				{totalItemCt !== null && (
-					<p>
-						Total Items:{" "}
-						<span className="font-bold">{totalItemCt satisfies number}</span>
-					</p>
-				)}
+				<p>
+					Item Types: <span className="font-bold">{itemTypeCt}</span>
+				</p>
+
+				<p>
+					Total Items: <span className="font-bold">{totalItemCt}</span>
+				</p>
 			</footer>
 		</article>
 	);

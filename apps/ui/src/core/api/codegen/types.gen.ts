@@ -25,6 +25,10 @@ export type HttpValidationError = {
  */
 export type PublicCategory = {
     /**
+     * Uuid
+     */
+    uuid: string;
+    /**
      * Name Id
      */
     name_id: string;
@@ -33,13 +37,41 @@ export type PublicCategory = {
      */
     name: string;
     /**
-     * Item Type Ct
+     * Item Types
      */
-    item_type_ct?: number | null;
+    item_types: Array<PublicItemType>;
     /**
-     * Total Item Ct
+     * Items
      */
-    total_item_ct?: number | null;
+    items: Array<PublicItem>;
+};
+
+/**
+ * PublicItem
+ */
+export type PublicItem = {
+    /**
+     * Uuid
+     */
+    uuid: string;
+    /**
+     * Name
+     */
+    name: string;
+};
+
+/**
+ * PublicItemType
+ */
+export type PublicItemType = {
+    /**
+     * Uuid
+     */
+    uuid: string;
+    /**
+     * Name
+     */
+    name: string;
 };
 
 /**
@@ -65,13 +97,13 @@ export type GetCategoriesData = {
     path?: never;
     query?: {
         /**
-         * Include[Item Type Ct]
+         * Include[Item Types]
          */
-        'include[item_type_ct]'?: boolean;
+        'include[item_types]'?: boolean;
         /**
-         * Include[Total Item Ct]
+         * Include[Items]
          */
-        'include[total_item_ct]'?: boolean;
+        'include[items]'?: boolean;
         /**
          * Filter[Name Id]
          */

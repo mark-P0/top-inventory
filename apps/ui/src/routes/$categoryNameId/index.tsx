@@ -8,8 +8,8 @@ export const Route = createFileRoute("/$categoryNameId/")({
 
 		const result = await getCategories({
 			query: {
-				"include[item_type_ct]": true,
-				"include[total_item_ct]": true,
+				"include[item_types]": true,
+				"include[items]": true,
 				"filter[name_id]": categoryNameId,
 			},
 		});
