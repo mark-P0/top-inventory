@@ -5,11 +5,21 @@ import { cn } from "@/lib/tailwind";
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import type { PropsWithChildren } from "react";
 
+function getCategoryItemTypeCt(category: PublicCategory) {
+	const itemTypeUuids = new Set<string>();
+	for (const item of category.items) {
+		itemTypeUuids.add(item.item_type.uuid);
+	}
+
+	const itemTypeCt = itemTypeUuids.size;
+
+	return itemTypeCt;
+}
+
 export const Route = createFileRoute("/")({
 	loader: async () => {
 		const result = await getCategories({
 			query: {
-				"include[item_types]": true,
 				"include[items]": true,
 			},
 		});
@@ -18,8 +28,12 @@ export const Route = createFileRoute("/")({
 		}
 
 		const categories = result.data.data;
+		const categoryRecord = categories.map((category) => ({
+			category,
+			itemTypeCt: getCategoryItemTypeCt(category),
+		}));
 
-		return { categories };
+		return { categoryRecord };
 	},
 	component: CategoriesScreen,
 });
@@ -33,14 +47,14 @@ function CategoriesScreen() {
 }
 
 function CategoryList() {
-	const { categories } = Route.useLoaderData();
+	const { categoryRecord } = Route.useLoaderData();
 
 	return (
 		<ol className="grid lg:grid-cols-5 gap-3">
-			{categories.map((category) => (
+			{categoryRecord.map(({ category, itemTypeCt }) => (
 				<li key={category.name_id}>
 					<CategoryLink category={category}>
-						<CategoryCard category={category} />
+						<CategoryCard category={category} itemTypeCt={itemTypeCt} />
 					</CategoryLink>
 				</li>
 			))}
@@ -58,10 +72,9 @@ function CategoryLink(props: PropsWithChildren<{ category: PublicCategory }>) {
 	);
 }
 
-function CategoryCard(props: { category: PublicCategory }) {
-	const { category } = props;
+function CategoryCard(props: { category: PublicCategory; itemTypeCt: number }) {
+	const { category, itemTypeCt } = props;
 
-	const itemTypeCt = category.item_types.length;
 	const totalItemCt = category.items.length;
 
 	return (

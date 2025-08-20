@@ -37,19 +37,15 @@ export type PublicCategory = {
      */
     name: string;
     /**
-     * Item Types
-     */
-    item_types: Array<PublicItemType>;
-    /**
      * Items
      */
-    items: Array<PublicItem>;
+    items: Array<PublicCategoryItem>;
 };
 
 /**
- * PublicItem
+ * PublicCategoryItem
  */
-export type PublicItem = {
+export type PublicCategoryItem = {
     /**
      * Uuid
      */
@@ -58,12 +54,13 @@ export type PublicItem = {
      * Name
      */
     name: string;
+    item_type: PublicCategoryItemType;
 };
 
 /**
- * PublicItemType
+ * PublicCategoryItemType
  */
-export type PublicItemType = {
+export type PublicCategoryItemType = {
     /**
      * Uuid
      */
@@ -96,10 +93,6 @@ export type GetCategoriesData = {
     body?: never;
     path?: never;
     query?: {
-        /**
-         * Include[Item Types]
-         */
-        'include[item_types]'?: boolean;
         /**
          * Include[Items]
          */
