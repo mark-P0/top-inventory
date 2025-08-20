@@ -24,20 +24,26 @@ export const Route = createFileRoute("/")({
 });
 
 function CategoriesScreen() {
+	return (
+		<Screen title="Categories">
+			<CategoryList />
+		</Screen>
+	);
+}
+
+function CategoryList() {
 	const { categories } = Route.useLoaderData();
 
 	return (
-		<Screen title="Categories">
-			<ol className="grid lg:grid-cols-5 gap-3">
-				{categories.map((category) => (
-					<li key={category.name_id}>
-						<CategoryLink category={category}>
-							<CategoryCard category={category} />
-						</CategoryLink>
-					</li>
-				))}
-			</ol>
-		</Screen>
+		<ol className="grid lg:grid-cols-5 gap-3">
+			{categories.map((category) => (
+				<li key={category.name_id}>
+					<CategoryLink category={category}>
+						<CategoryCard category={category} />
+					</CategoryLink>
+				</li>
+			))}
+		</ol>
 	);
 }
 
