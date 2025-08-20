@@ -18,3 +18,11 @@ sample_item_types = [
     )
     for idx in range(16)
 ]
+
+
+def get_item_type_by_id(id: int):
+    for item_type in sample_item_types:
+        if item_type.id == id:
+            return item_type
+
+    raise ValueError("Item type not found")

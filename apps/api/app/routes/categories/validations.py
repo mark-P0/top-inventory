@@ -4,23 +4,31 @@ from fastapi import Query
 from pydantic import BaseModel
 
 
-class PublicCategory(BaseModel):
-    name_id: str
+class PublicCategoryItemType(BaseModel):
+    uuid: str
 
     name: str
 
-    item_type_ct: int | None = None
-    total_item_ct: int | None = None
+
+class PublicCategoryItem(BaseModel):
+    uuid: str
+
+    name: str
+    item_type: PublicCategoryItemType
+
+
+class PublicCategory(BaseModel):
+    uuid: str
+    name_id: str
+
+    name: str
+    items: list[PublicCategoryItem]
 
 
 class GetCategoriesQueryRaw(BaseModel):
-    include_item_type_ct: Annotated[
+    include_items: Annotated[
         bool,
-        Query(alias="include[item_type_ct]"),
-    ] = False
-    include_total_item_ct: Annotated[
-        bool,
-        Query(alias="include[total_item_ct]"),
+        Query(alias="include[items]"),
     ] = False
     filter_name_id: Annotated[str | None, Query(alias="filter[name_id]")] = None
 
