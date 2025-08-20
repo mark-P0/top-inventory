@@ -1,4 +1,5 @@
 import { type PublicCategory, getCategories } from "@/core/api/codegen";
+import { Card } from "@/core/components/Card";
 import { Screen } from "@/core/components/Screen";
 import { cn } from "@/lib/tailwind";
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
@@ -64,7 +65,7 @@ function CategoryCard(props: { category: PublicCategory }) {
 	const totalItemCt = category.items.length;
 
 	return (
-		<article className="aspect-[4/3] bg-stone-300 dark:bg-stone-600 flex flex-col justify-between gap-3 p-3">
+		<Card>
 			<header>
 				<h2 className="text-2xl font-semibold">{category.name}</h2>
 			</header>
@@ -83,6 +84,6 @@ function CategoryCard(props: { category: PublicCategory }) {
 					Total Items: <span className="font-bold">{totalItemCt}</span>
 				</p>
 			</footer>
-		</article>
+		</Card>
 	);
 }
