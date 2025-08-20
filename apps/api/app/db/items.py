@@ -1,5 +1,4 @@
 import random
-from pprint import pprint
 from uuid import uuid4
 
 from pydantic import BaseModel
@@ -32,6 +31,3 @@ sample_items = [
     )
     for idx in range(32)
 ]
-
-
-pprint(sample_items)
