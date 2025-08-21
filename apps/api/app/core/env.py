@@ -1,5 +1,10 @@
 import os
 
+from pydantic import BaseModel
 
-class Env:
-    REVERSE_PROXY_ROOT_PATH = os.environ.get("REVERSE_PROXY_ROOT_PATH") or "/api"
+
+class Env(BaseModel):
+    REVERSE_PROXY_ROOT_PATH: str = "/api"
+
+
+ENV = Env.model_validate(os.environ)
