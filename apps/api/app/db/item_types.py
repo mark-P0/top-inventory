@@ -1,28 +1,10 @@
-from uuid import uuid4
+from uuid import UUID, uuid4
 
-from pydantic import BaseModel
+from sqlmodel import Field, SQLModel
 
 
-class ItemType(BaseModel):
-    id: int
-    uuid: str
+class ItemType(SQLModel, table=True):
+    id: int = Field(primary_key=True)
+    uuid: UUID = Field(index=True, unique=True, default_factory=uuid4)
 
     name: str
-
-
-sample_item_types = [
-    ItemType(
-        id=idx,
-        uuid=str(uuid4()),
-        name=f"Item Type {idx}",
-    )
-    for idx in range(16)
-]
-
-
-def get_item_type_by_id(id: int):
-    for item_type in sample_item_types:
-        if item_type.id == id:
-            return item_type
-
-    raise ValueError("Item type not found")

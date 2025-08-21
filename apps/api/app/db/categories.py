@@ -1,22 +1,22 @@
-from uuid import uuid4
+from uuid import UUID, uuid4
 
-from pydantic import BaseModel
+from sqlmodel import Field, SQLModel, select
+
+from app.db import SessionDependency
 
 
-class Category(BaseModel):
-    id: int
-    uuid: str
-    name_id: str
+class Category(SQLModel, table=True):
+    id: int = Field(primary_key=True)
+    uuid: UUID = Field(index=True, unique=True, default_factory=uuid4)
+    name_id: str = Field(index=True, unique=True)
 
     name: str
 
 
-sample_categories = [
-    Category(
-        id=idx,
-        uuid=str(uuid4()),
-        name_id=f"category-{idx}",
-        name=f"Category {idx}",
-    )
-    for idx in range(8)
-]
+class DBCategory:
+    @classmethod
+    def get_all(cls, *, session: SessionDependency):
+        statement = select(Category)
+        result = session.exec(statement).all()
+
+        return result

@@ -1,33 +1,13 @@
-import random
-from uuid import uuid4
+from uuid import UUID, uuid4
 
-from pydantic import BaseModel
-
-from app.db.categories import sample_categories
-from app.db.item_types import sample_item_types
+from sqlmodel import Field, SQLModel
 
 
-class Item(BaseModel):
-    id: int
-    uuid: str
+class Item(SQLModel, table=True):
+    id: int = Field(primary_key=True)
+    uuid: UUID = Field(index=True, unique=True, default_factory=uuid4)
 
-    category_id: int
-    item_type_id: int
+    category_id: int = Field(index=True, unique=True)
+    item_type_id: int = Field(index=True, unique=True)
 
     name: str
-
-
-sample_category_ids = [category.id for category in sample_categories]
-sample_item_type_ids = [item_type.id for item_type in sample_item_types]
-
-
-sample_items = [
-    Item(
-        id=idx,
-        uuid=str(uuid4()),
-        category_id=random.choice(sample_category_ids),
-        item_type_id=random.choice(sample_item_type_ids),
-        name=f"Item {idx}",
-    )
-    for idx in range(32)
-]
