@@ -1,3 +1,4 @@
+from typing import TypedDict
 from uuid import UUID, uuid4
 
 from sqlmodel import Field, SQLModel, select
@@ -14,9 +15,15 @@ class Category(SQLModel, table=True):
 
 
 class DBCategory:
+    class GetAllFilter(TypedDict):
+        name_id: str | None
+
     @classmethod
-    def get_all(cls, *, session: SessionDependency):
+    def get_all(cls, session: SessionDependency, /, filter: GetAllFilter):
         statement = select(Category)
+        if filter["name_id"] is not None:
+            statement = statement.where(Category.name_id == filter["name_id"])
+
         result = session.exec(statement).all()
 
         return result

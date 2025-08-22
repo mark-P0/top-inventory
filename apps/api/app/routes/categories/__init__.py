@@ -16,7 +16,12 @@ def get_categories(
     session: SessionDependency,
     query: GetCategoriesQuery,
 ) -> GetCategoriesResponse:
-    categories = DBCategory.get_all(session=session)
+    categories = DBCategory.get_all(
+        session,
+        filter={
+            "name_id": query.filter_name_id,
+        },
+    )
 
     return GetCategoriesResponse(
         data=[
