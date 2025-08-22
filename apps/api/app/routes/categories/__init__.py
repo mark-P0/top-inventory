@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from app.db import SessionDependency
-from app.db.categories import DBCategory
+from app.db.categories import Category
 from app.routes.categories.validations import (
     GetCategoriesQuery,
     GetCategoriesResponse,
@@ -17,7 +17,7 @@ def get_categories(
     query: GetCategoriesQuery,
 ) -> GetCategoriesResponse:
     def generate_categories():
-        categories = DBCategory.get_all(
+        categories = Category.get_all(
             session,
             filter={
                 "name_id": query.filter_name_id,

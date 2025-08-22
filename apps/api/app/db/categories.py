@@ -13,13 +13,13 @@ class Category(SQLModel, table=True):
 
     name: str
 
+    ...  # Non-model fields below
 
-class DBCategory:
     class GetAllFilter(TypedDict):
         name_id: str | None
 
-    @classmethod
-    def get_all(cls, session: SessionDependency, /, filter: GetAllFilter):
+    @staticmethod
+    def get_all(session: SessionDependency, /, filter: GetAllFilter):
         statement = select(Category)
         if filter["name_id"] is not None:
             statement = statement.where(Category.name_id == filter["name_id"])
