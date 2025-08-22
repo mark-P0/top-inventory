@@ -6,6 +6,8 @@ from app.routes.categories.validations import (
     GetCategoriesQuery,
     GetCategoriesResponse,
     PublicCategory,
+    PublicCategoryItem,
+    PublicCategoryItemType,
 )
 
 CategoriesRouter = APIRouter(prefix="/categories")
@@ -16,6 +18,20 @@ def get_categories(
     session: SessionDependency,
     query: GetCategoriesQuery,
 ) -> GetCategoriesResponse:
+    def generate_items(category: Category):
+        if not query.include_items:
+            return
+
+        for item in category.items:
+            yield PublicCategoryItem(
+                uuid=str(item.uuid),
+                name=item.name,
+                item_type=PublicCategoryItemType(
+                    uuid=str(item.item_type.uuid),
+                    name=item.item_type.name,
+                ),
+            )
+
     def generate_categories():
         categories = Category.get_all(
             session,
@@ -29,7 +45,7 @@ def get_categories(
                 uuid=str(category.uuid),
                 name_id=category.name_id,
                 name=category.name,
-                items=[],
+                items=[*generate_items(category)],
             )
 
     return GetCategoriesResponse(
