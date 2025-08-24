@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from app.db import SessionDependency
-from app.db.categories import Category
+from app.db.models import Category
 from app.routes.categories.validations import (
     GetCategoriesQuery,
     GetCategoriesResponse,

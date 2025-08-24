@@ -1,16 +1,28 @@
-from typing import TYPE_CHECKING, TypedDict
+from typing import TypedDict
 from uuid import UUID, uuid4
 
 from sqlmodel import Field, Relationship, SQLModel, select
 
 from app.db import SessionDependency
 
-if TYPE_CHECKING:
-    """
-    https://sqlmodel.tiangolo.com/tutorial/code-structure/#import-only-while-editing-with-type_checking
-    """
 
-    from app.db.items import Item
+class ItemType(SQLModel, table=True):
+    id: int = Field(primary_key=True)
+    uuid: UUID = Field(unique=True, default_factory=uuid4)
+
+    name: str
+
+
+class Item(SQLModel, table=True):
+    id: int = Field(primary_key=True)
+    uuid: UUID = Field(unique=True, default_factory=uuid4)
+
+    category_id: int = Field(foreign_key="category.id")
+    item_type_id: int = Field(foreign_key="itemtype.id")
+
+    name: str
+
+    item_type: ItemType = Relationship()
 
 
 class Category(SQLModel, table=True):
