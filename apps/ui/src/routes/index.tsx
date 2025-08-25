@@ -4,6 +4,7 @@ import { Screen } from "@/core/components/Screen";
 import { cn } from "@/lib/tailwind";
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import type { PropsWithChildren } from "react";
+import { NewCategoryModal } from "./-components/NewCategoryModal";
 
 function getCategoryItemTypeCt(category: PublicCategory) {
 	const itemTypeUuids = new Set<string>();
@@ -51,6 +52,12 @@ function CategoryList() {
 
 	return (
 		<ol className="grid lg:grid-cols-5 gap-3">
+			<li className="size-full">
+				<NewCategoryModal
+					className={cn("w-full aspect-[4/3]", "border-2 border-dashed")}
+				/>
+			</li>
+
 			{categoryRecord.map(({ category, itemTypeCt }) => (
 				<li key={category.name_id}>
 					<CategoryLink category={category}>
