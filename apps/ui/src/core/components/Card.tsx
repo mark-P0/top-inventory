@@ -7,7 +7,7 @@ export function Card(props: ComponentProps<"article">) {
 			{...props}
 			className={cn(
 				"flex flex-col justify-between gap-3 p-3",
-				"bg-stone-300 dark:bg-stone-600",
+				"bg-muted-1",
 				props.className,
 			)}
 		/>

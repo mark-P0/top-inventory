@@ -3,15 +3,52 @@
 /** https://tailwindcss.com/docs/dark-mode#with-system-theme-support */
 @custom-variant dark (&:where(.dark, .dark *));
 
+:root {
+	--color-muted-0-light: var(--color-stone-200);
+	--color-muted-0-dark: var(--color-stone-700);
+	--color-muted-1-light: var(--color-stone-300);
+	--color-muted-1-dark: var(--color-stone-600);
+	--color-muted-2-light: var(--color-stone-400);
+	--color-muted-2-dark: var(--color-stone-500);
+
+	--color-muted-0: var(--color-muted-0-light);
+	--color-muted-1: var(--color-muted-1-light);
+	--color-muted-2: var(--color-muted-2-light);
+	--color-muted-0-reverse: var(--color-muted-0-dark);
+	--color-muted-1-reverse: var(--color-muted-1-dark);
+	--color-muted-2-reverse: var(--color-muted-2-dark);
+
+	@variant dark {
+		--color-muted-0: var(--color-muted-0-dark);
+		--color-muted-1: var(--color-muted-1-dark);
+		--color-muted-2: var(--color-muted-2-dark);
+		--color-muted-0-reverse: var(--color-muted-0-light);
+		--color-muted-1-reverse: var(--color-muted-1-light);
+		--color-muted-2-reverse: var(--color-muted-2-light);
+	}
+}
+
+/**
+ * Define colors above, then assign here to be recognized by Tailwind.
+ * Have to define separately as dark variant is not accepted inside `@theme` directive.
+ */
+@theme {
+	--color-muted-0: var(--color-muted-0);
+	--color-muted-1: var(--color-muted-1);
+	--color-muted-2: var(--color-muted-2);
+
+	--color-muted-0-reverse: var(--color-muted-0-reverse);
+	--color-muted-1-reverse: var(--color-muted-1-reverse);
+	--color-muted-2-reverse: var(--color-muted-2-reverse);
+}
+
 @utility selection {
 	@apply selection:text-amber-800 selection:bg-amber-400;
 }
 
 @layer base {
 	body {
-		@apply bg-stone-200 dark:bg-stone-700;
-		@apply text-stone-700 dark:text-stone-200;
-		@apply selection;
+		@apply bg-muted-0 text-muted-0-reverse selection;
 	}
 }
 

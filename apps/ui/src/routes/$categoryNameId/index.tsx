@@ -106,8 +106,9 @@ function ItemTypeCard(props: {
 
 			<footer
 				className={cn(
-					"text-sm dark:text-stone-400",
 					"flex items-center justify-between gap-3",
+					"text-sm",
+					"text-muted-2-reverse",
 				)}
 			>
 				<p>

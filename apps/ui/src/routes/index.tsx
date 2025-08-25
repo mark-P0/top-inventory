@@ -78,15 +78,16 @@ function CategoryCard(props: { category: PublicCategory; itemTypeCt: number }) {
 	const totalItemCt = category.items.length;
 
 	return (
-		<Card className="aspect-[4/3]" > 
+		<Card className="aspect-[4/3]">
 			<header>
 				<h2 className="text-2xl font-semibold">{category.name}</h2>
 			</header>
 
 			<footer
 				className={cn(
-					"text-sm dark:text-stone-400",
 					"flex items-center justify-between gap-3",
+					"text-sm",
+					"text-muted-2-reverse",
 				)}
 			>
 				<p>

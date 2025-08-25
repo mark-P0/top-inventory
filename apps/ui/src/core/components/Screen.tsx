@@ -17,8 +17,8 @@ export function Screen(
 					<h1 className="text-3xl font-bold">{title}</h1>
 					<p
 						className={cn(
-							"text-stone-500 dark:text-stone-400",
 							"text-xs uppercase tracking-wide",
+							"text-muted-2-reverse",
 						)}
 					>
 						Inventory App
