@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
 
 from app.db import SessionDependency
+from app.db.categories import create_category, get_all_categories
 from app.db.models import Category
 from app.routes.categories.validations import (
     GetCategoriesQuery,
@@ -35,7 +36,7 @@ def get_categories(
             )
 
     def generate_categories():
-        categories = Category.get_all(
+        categories = get_all_categories(
             session,
             filter={
                 "name_id": query.filter_name_id,
@@ -59,7 +60,7 @@ def get_categories(
 def new_category(
     session: SessionDependency, body: NewCategoryBody
 ) -> NewCategoryResponse:
-    result = Category.add(
+    result = create_category(
         session,
         category_name=body.category_name,
     )
