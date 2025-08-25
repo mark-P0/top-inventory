@@ -37,4 +37,12 @@ class GetCategoriesResponse(BaseModel):
     data: list[PublicCategory]
 
 
+class NewCategoryBody(BaseModel):
+    category_name: str
+
+
+class NewCategoryResponse(BaseModel):
+    data: PublicCategory
+
+
 GetCategoriesQuery = Annotated[GetCategoriesQueryRaw, Query()]

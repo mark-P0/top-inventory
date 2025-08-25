@@ -1,10 +1,12 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 
 from app.db import SessionDependency
 from app.db.models import Category
 from app.routes.categories.validations import (
     GetCategoriesQuery,
     GetCategoriesResponse,
+    NewCategoryBody,
+    NewCategoryResponse,
     PublicCategory,
     PublicCategoryItem,
     PublicCategoryItemType,
@@ -50,4 +52,35 @@ def get_categories(
 
     return GetCategoriesResponse(
         data=[*generate_categories()],
+    )
+
+
+@CategoriesRouter.post("/")
+def new_category(
+    session: SessionDependency, body: NewCategoryBody
+) -> NewCategoryResponse:
+    result = Category.add(
+        session,
+        category_name=body.category_name,
+    )
+    if result.error == "CATEGORY_ALREADY_EXISTING":
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Category already exists",
+        )
+
+    category = result.data
+    if category is None:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Category not created?",
+        )
+
+    return NewCategoryResponse(
+        data=PublicCategory(
+            uuid=str(category.uuid),
+            name_id=category.name_id,
+            name=category.name,
+            items=[],
+        ),
     )
