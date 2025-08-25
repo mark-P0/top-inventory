@@ -21,6 +21,23 @@ export type HttpValidationError = {
 };
 
 /**
+ * NewCategoryBody
+ */
+export type NewCategoryBody = {
+    /**
+     * Category Name
+     */
+    category_name: string;
+};
+
+/**
+ * NewCategoryResponse
+ */
+export type NewCategoryResponse = {
+    data: PublicCategory;
+};
+
+/**
  * PublicCategory
  */
 export type PublicCategory = {
@@ -122,6 +139,31 @@ export type GetCategoriesResponses = {
 };
 
 export type GetCategoriesResponse2 = GetCategoriesResponses[keyof GetCategoriesResponses];
+
+export type NewCategoryData = {
+    body: NewCategoryBody;
+    path?: never;
+    query?: never;
+    url: '/categories/';
+};
+
+export type NewCategoryErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type NewCategoryError = NewCategoryErrors[keyof NewCategoryErrors];
+
+export type NewCategoryResponses = {
+    /**
+     * Successful Response
+     */
+    200: NewCategoryResponse;
+};
+
+export type NewCategoryResponse2 = NewCategoryResponses[keyof NewCategoryResponses];
 
 export type ClientOptions = {
     baseUrl: `${string}://${string}/api` | (string & {});
