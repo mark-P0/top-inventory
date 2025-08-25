@@ -1,3 +1,4 @@
+import { newCategory } from "@/core/api/codegen";
 import {
 	Dialog,
 	DialogContent,
@@ -7,21 +8,78 @@ import {
 	DialogTrigger,
 } from "@/core/components/ark-ui/Dialog";
 import { cn } from "@/lib/tailwind";
-import type { ComponentProps } from "react";
+import { useRouter } from "@tanstack/react-router";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-export function NewCategoryModal(props: { className?: string }) {
-	const createCategory: ComponentProps<"form">["onSubmit"] = (event) => {
-		event.preventDefault();
+function NewCategoryForm(props: { onSuccess?: () => void }) {
+	const router = useRouter();
 
-		const formData = Object.fromEntries(new FormData(event.currentTarget));
+	const form = useForm<{
+		categoryName: string;
+	}>();
 
-		console.warn({ formData });
+	const createCategory = form.handleSubmit(async (formData) => {
+		const result = await newCategory({
+			body: {
+				category_name: formData.categoryName,
+			},
+		});
+		if (result.error) {
+			form.setError("root", {
+				message: "Failed creating category",
+			});
 
-		throw new Error("TODO");
-	};
+			return;
+		}
+
+		await router.invalidate();
+		props.onSuccess?.();
+	});
 
 	return (
-		<Dialog>
+		<form onSubmit={createCategory}>
+			<fieldset disabled={form.formState.isSubmitting} className="space-y-6">
+				<label className="grid gap-1">
+					<span className="font-semibold">Category Name</span>
+					<input
+						{...form.register("categoryName", { required: true, min: 1 })}
+						className={cn("bg-muted-0", "px-3 py-2")}
+					/>
+				</label>
+
+				<footer className="flex flex-row-reverse">
+					<button
+						type="submit"
+						className={cn(
+							"bg-muted-0-reverse text-muted-0",
+							"enabled:hover:cursor-pointer",
+							"px-3 py-2",
+							"font-semibold",
+						)}
+					>
+						Save
+					</button>
+				</footer>
+			</fieldset>
+		</form>
+	);
+}
+
+export function NewCategoryModal(props: { className?: string }) {
+	const [open, setIsOpen] = useState(false);
+
+	function closeModal() {
+		setIsOpen(false);
+	}
+
+	return (
+		<Dialog
+			lazyMount
+			unmountOnExit
+			open={open}
+			onOpenChange={({ open }) => setIsOpen(open)}
+		>
 			<DialogTrigger
 				className={cn(
 					"hover:bg-muted-1",
@@ -38,30 +96,7 @@ export function NewCategoryModal(props: { className?: string }) {
 					<DialogDescription>Create a new category</DialogDescription>
 				</DialogHeader>
 
-				<form onSubmit={createCategory} className="space-y-6">
-					<label className="grid gap-1">
-						<span className="font-semibold">Category Name</span>
-						<input
-							type="text"
-							name="name"
-							className={cn("bg-muted-0", "px-3 py-2")}
-						/>
-					</label>
-
-					<footer className="flex flex-row-reverse">
-						<button
-							type="submit"
-							className={cn(
-								"bg-muted-0-reverse text-muted-0",
-								"enabled:hover:cursor-pointer",
-								"px-3 py-2",
-								"font-semibold",
-							)}
-						>
-							Save
-						</button>
-					</footer>
-				</form>
+				<NewCategoryForm onSuccess={closeModal} />
 			</DialogContent>
 		</Dialog>
 	);
