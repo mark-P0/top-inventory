@@ -101,7 +101,7 @@ function ItemTypeCard(props: {
 	return (
 		<Card className="aspect-[4/3]">
 			<header>
-				<h2 className="text-2xl font-semibold">{itemType.name}</h2>
+				<h2>{itemType.name}</h2>
 			</header>
 
 			<footer

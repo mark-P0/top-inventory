@@ -14,7 +14,7 @@ export function Screen(
 		<main className={cn("min-h-screen", "p-6 space-y-6", props.className)}>
 			<header className="flex items-center justify-between gap-3">
 				<div className="space-y-1">
-					<h1 className="text-3xl font-bold">{title}</h1>
+					<h1>{title}</h1>
 					<p
 						className={cn(
 							"text-xs uppercase tracking-wide",

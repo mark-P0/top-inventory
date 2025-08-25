@@ -80,7 +80,7 @@ function CategoryCard(props: { category: PublicCategory; itemTypeCt: number }) {
 	return (
 		<Card className="aspect-[4/3]">
 			<header>
-				<h2 className="text-2xl font-semibold">{category.name}</h2>
+				<h2>{category.name}</h2>
 			</header>
 
 			<footer
