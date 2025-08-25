@@ -78,7 +78,7 @@ function CategoryCard(props: { category: PublicCategory; itemTypeCt: number }) {
 	const totalItemCt = category.items.length;
 
 	return (
-		<Card>
+		<Card className="aspect-[4/3]" > 
 			<header>
 				<h2 className="text-2xl font-semibold">{category.name}</h2>
 			</header>

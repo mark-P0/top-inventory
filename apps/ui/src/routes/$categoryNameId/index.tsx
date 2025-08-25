@@ -99,7 +99,7 @@ function ItemTypeCard(props: {
 	const itemCt = items.length;
 
 	return (
-		<Card>
+		<Card className="aspect-[4/3]">
 			<header>
 				<h2 className="text-2xl font-semibold">{itemType.name}</h2>
 			</header>
