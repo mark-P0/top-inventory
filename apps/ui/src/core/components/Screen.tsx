@@ -11,16 +11,7 @@ export function Screen(
 	const { title } = props;
 
 	return (
-		<main
-			className={cn(
-				"min-h-screen",
-				"bg-stone-200 text-stone-700",
-				"dark:bg-stone-700 dark:text-stone-200",
-				"selection:text-amber-800 selection:bg-amber-400",
-				"p-6 space-y-6",
-				props.className,
-			)}
-		>
+		<main className={cn("min-h-screen", "p-6 space-y-6", props.className)}>
 			<header className="flex items-center justify-between gap-3">
 				<div className="space-y-1">
 					<h1 className="text-3xl font-bold">{title}</h1>

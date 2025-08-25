@@ -3,6 +3,14 @@
 /** https://tailwindcss.com/docs/dark-mode#with-system-theme-support */
 @custom-variant dark (&:where(.dark, .dark *));
 
+@layer base {
+	body {
+		@apply bg-stone-200 dark:bg-stone-700;
+		@apply text-stone-700 dark:text-stone-200;
+		@apply selection:text-amber-800 selection:bg-amber-400;
+	}
+}
+
 body {
 	@apply m-0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
