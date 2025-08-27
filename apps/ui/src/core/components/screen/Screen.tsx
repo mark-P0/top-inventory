@@ -1,6 +1,6 @@
 import { cn } from "@/lib/tailwind";
 import type { ComponentProps, PropsWithChildren, ReactNode } from "react";
-import { ThemeButton } from "../theme/ThemeButton";
+import { ThemeButton } from "../../theme/ThemeButton";
 
 export function Screen(
 	props: PropsWithChildren<{

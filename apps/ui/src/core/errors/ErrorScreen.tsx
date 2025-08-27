@@ -1,7 +1,7 @@
 import { cn } from "@/lib/tailwind";
 import { Link } from "@tanstack/react-router";
 import { Wrench } from "lucide-react";
-import { Screen } from "../components/Screen";
+import { Screen } from "../components/screen/Screen";
 
 export function ErrorScreen(props: { errorMsg?: string }) {
 	const { errorMsg } = props;

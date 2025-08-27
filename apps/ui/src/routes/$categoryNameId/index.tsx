@@ -5,7 +5,7 @@ import {
 	getCategories,
 } from "@/core/api/codegen";
 import { Card } from "@/core/components/Card";
-import { Screen } from "@/core/components/Screen";
+import { Screen } from "@/core/components/screen/Screen";
 import { cn } from "@/lib/tailwind";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
