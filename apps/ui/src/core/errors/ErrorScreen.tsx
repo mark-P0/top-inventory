@@ -1,13 +1,13 @@
 import { cn } from "@/lib/tailwind";
 import { Link } from "@tanstack/react-router";
 import { Wrench } from "lucide-react";
-import { Screen } from "../components/screen/Screen";
+import { BaseScreen } from "../components/screen/BaseScreen";
 
 export function ErrorScreen(props: { errorMsg?: string }) {
 	const { errorMsg } = props;
 
 	return (
-		<Screen title="..." className="flex flex-col">
+		<BaseScreen title="..." className="flex flex-col">
 			<div
 				className={cn("flex-grow", "grid place-items-center", "text-center")}
 			>
@@ -27,6 +27,6 @@ export function ErrorScreen(props: { errorMsg?: string }) {
 					<Link to="/">Go back home</Link>
 				</div>
 			</div>
-		</Screen>
+		</BaseScreen>
 	);
 }

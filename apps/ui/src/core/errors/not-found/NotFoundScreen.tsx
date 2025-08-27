@@ -1,11 +1,11 @@
 import { cn } from "@/lib/tailwind";
 import { Link } from "@tanstack/react-router";
 import { Ghost } from "lucide-react";
-import { Screen } from "../../components/screen/Screen";
+import { BaseScreen } from "../../components/screen/BaseScreen";
 
 export function NotFoundScreen() {
 	return (
-		<Screen title="...?" className="flex flex-col">
+		<BaseScreen title="...?" className="flex flex-col">
 			<div
 				className={cn("flex-grow", "grid place-items-center", "text-center")}
 			>
@@ -18,6 +18,6 @@ export function NotFoundScreen() {
 					<Link to="/">Go back home</Link>
 				</div>
 			</div>
-		</Screen>
+		</BaseScreen>
 	);
 }
