@@ -5,6 +5,7 @@ import {
 	getCategories,
 } from "@/core/api/codegen";
 import { Card } from "@/core/components/Card";
+import { Loading } from "@/core/components/Loading";
 import { Screen } from "@/core/components/screen/Screen";
 import { cn } from "@/lib/tailwind";
 import { iife } from "@/lib/utils";
@@ -85,12 +86,12 @@ function CategoryScreen() {
 	return (
 		<Screen
 			title={
-				<Suspense fallback="...">
+				<Suspense fallback={<Loading label="Finding category name..." />}>
 					<CategoryScreenTitle />
 				</Suspense>
 			}
 		>
-			<Suspense>
+			<Suspense fallback={<Loading label="Finding category items..." />}>
 				<ItemTypeList />
 			</Suspense>
 		</Screen>
