@@ -49,7 +49,7 @@ export const Route = createFileRoute("/$categoryNameId/")({
 				},
 			});
 			if (result.error) {
-				throw notFound();
+				throw result.error;
 			}
 
 			const categories = result.data.data;

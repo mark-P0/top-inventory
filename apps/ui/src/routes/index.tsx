@@ -3,7 +3,7 @@ import { Card } from "@/core/components/Card";
 import { Screen } from "@/core/components/screen/Screen";
 import { cn } from "@/lib/tailwind";
 import { iife } from "@/lib/utils";
-import { Link, createFileRoute, notFound } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { type PropsWithChildren, Suspense, use } from "react";
 import { NewCategoryModal } from "./-components/NewCategoryModal";
 
@@ -27,7 +27,7 @@ export const Route = createFileRoute("/")({
 				},
 			});
 			if (result.error) {
-				throw notFound();
+				throw result.error;
 			}
 
 			const categories = result.data.data;
