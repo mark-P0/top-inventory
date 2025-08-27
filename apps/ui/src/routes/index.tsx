@@ -2,8 +2,9 @@ import { type PublicCategory, getCategories } from "@/core/api/codegen";
 import { Card } from "@/core/components/Card";
 import { Screen } from "@/core/components/screen/Screen";
 import { cn } from "@/lib/tailwind";
+import { iife } from "@/lib/utils";
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import type { PropsWithChildren } from "react";
+import { type PropsWithChildren, Suspense, use } from "react";
 import { NewCategoryModal } from "./-components/NewCategoryModal";
 
 function getCategoryItemTypeCt(category: PublicCategory) {
@@ -19,22 +20,28 @@ function getCategoryItemTypeCt(category: PublicCategory) {
 
 export const Route = createFileRoute("/")({
 	loader: async () => {
-		const result = await getCategories({
-			query: {
-				"include[items]": true,
-			},
+		const categoryRecordPromise = iife(async () => {
+			const result = await getCategories({
+				query: {
+					"include[items]": true,
+				},
+			});
+			if (result.error) {
+				throw notFound();
+			}
+
+			const categories = result.data.data;
+			const categoryRecord = categories.map((category) => ({
+				category,
+				itemTypeCt: getCategoryItemTypeCt(category),
+			}));
+
+			return categoryRecord;
 		});
-		if (result.error) {
-			throw notFound();
-		}
 
-		const categories = result.data.data;
-		const categoryRecord = categories.map((category) => ({
-			category,
-			itemTypeCt: getCategoryItemTypeCt(category),
-		}));
-
-		return { categoryRecord };
+		return {
+			categoryRecordPromise,
+		};
 	},
 	component: CategoriesScreen,
 });
@@ -48,8 +55,6 @@ function CategoriesScreen() {
 }
 
 function CategoryList() {
-	const { categoryRecord } = Route.useLoaderData();
-
 	return (
 		<ol className="grid lg:grid-cols-5 gap-3">
 			<li className="size-full">
@@ -58,15 +63,25 @@ function CategoryList() {
 				/>
 			</li>
 
-			{categoryRecord.map(({ category, itemTypeCt }) => (
-				<li key={category.name_id}>
-					<CategoryLink category={category}>
-						<CategoryCard category={category} itemTypeCt={itemTypeCt} />
-					</CategoryLink>
-				</li>
-			))}
+			<Suspense>
+				<CategoryListItems />
+			</Suspense>
 		</ol>
 	);
+}
+
+function CategoryListItems() {
+	const { categoryRecordPromise } = Route.useLoaderData();
+
+	const categoryRecord = use(categoryRecordPromise);
+
+	return categoryRecord.map(({ category, itemTypeCt }) => (
+		<li key={category.name_id}>
+			<CategoryLink category={category}>
+				<CategoryCard category={category} itemTypeCt={itemTypeCt} />
+			</CategoryLink>
+		</li>
+	));
 }
 
 function CategoryLink(props: PropsWithChildren<{ category: PublicCategory }>) {

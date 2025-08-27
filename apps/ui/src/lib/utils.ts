@@ -31,3 +31,8 @@ export function wrappedAccess<T>(sequence: ArrayLike<T>, index: number): T {
 
 	return item;
 }
+
+/** Alternative to "ugly" IIFE syntax `(() => {})()` */
+export function iife<T>(fn: () => T) {
+	return fn();
+}

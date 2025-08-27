@@ -7,7 +7,9 @@ import {
 import { Card } from "@/core/components/Card";
 import { Screen } from "@/core/components/screen/Screen";
 import { cn } from "@/lib/tailwind";
+import { iife } from "@/lib/utils";
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import { Suspense, use } from "react";
 
 function groupItemTypeItems(category: PublicCategory) {
 	type GroupEntry = {
@@ -39,45 +41,74 @@ export const Route = createFileRoute("/$categoryNameId/")({
 	loader: async ({ params }) => {
 		const { categoryNameId } = params;
 
-		const result = await getCategories({
-			query: {
-				"include[items]": true,
-				"filter[name_id]": categoryNameId,
-			},
+		const categoryPromise = iife(async () => {
+			const result = await getCategories({
+				query: {
+					"include[items]": true,
+					"filter[name_id]": categoryNameId,
+				},
+			});
+			if (result.error) {
+				throw notFound();
+			}
+
+			const categories = result.data.data;
+			if (categories.length !== 1) {
+				throw notFound();
+			}
+
+			const category = categories[0];
+			if (category === undefined) {
+				throw notFound();
+			}
+
+			return category;
 		});
-		if (result.error) {
-			throw notFound();
-		}
 
-		const categories = result.data.data;
-		if (categories.length !== 1) {
-			throw notFound();
-		}
+		const itemTypeItemsPromise = iife(async () => {
+			const category = await categoryPromise;
 
-		const category = categories[0];
-		if (category === undefined) {
-			throw notFound();
-		}
+			const itemTypeItems = groupItemTypeItems(category);
 
-		const itemTypeItems = groupItemTypeItems(category);
+			return itemTypeItems;
+		});
 
-		return { category, itemTypeItems };
+		return {
+			categoryPromise,
+			itemTypeItemsPromise,
+		};
 	},
 	component: CategoryScreen,
 });
 
 function CategoryScreen() {
-	const { category } = Route.useLoaderData();
-
 	return (
-		<Screen title={category.name}>
-			<ItemTypeList />
+		<Screen
+			title={
+				<Suspense fallback="...">
+					<CategoryScreenTitle />
+				</Suspense>
+			}
+		>
+			<Suspense>
+				<ItemTypeList />
+			</Suspense>
 		</Screen>
 	);
 }
 
+function CategoryScreenTitle() {
+	const { categoryPromise } = Route.useLoaderData();
+
+	const category = use(categoryPromise);
+
+	return category.name;
+}
+
 function ItemTypeList() {
-	const { itemTypeItems } = Route.useLoaderData();
+	const { itemTypeItemsPromise } = Route.useLoaderData();
+
+	const itemTypeItems = use(itemTypeItemsPromise);
 
 	return (
 		<ol className="grid lg:grid-cols-5 gap-3">
