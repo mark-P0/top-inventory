@@ -59,9 +59,7 @@ function CategoryList() {
 	return (
 		<ol className="grid lg:grid-cols-5 gap-3">
 			<li className="size-full">
-				<NewCategoryModal
-					className={cn("w-full aspect-[4/3]", "border-2 border-dashed")}
-				/>
+				<NewCategoryModal className="w-full aspect-[4/3]" />
 			</li>
 
 			<Suspense fallback={<Loading label="Finding categories..." />}>

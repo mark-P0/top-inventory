@@ -83,7 +83,9 @@ export function NewCategoryModal(props: { className?: string }) {
 			<DialogTrigger
 				className={cn(
 					"hover:bg-muted-1",
-					"text-lg font-medium",
+					"font-semibold",
+					"border-2 border-dashed border-muted-2-reverse",
+					"text-muted-2-reverse",
 					props.className,
 				)}
 			>
