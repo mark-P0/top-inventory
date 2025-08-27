@@ -31,9 +31,8 @@ export function Loading(props: { label?: ReactNode }) {
 					<Progress.Label
 						className={cn(
 							"w-full py-1",
-							"text-center",
-							"text-xs uppercase tracking-wide",
-							"font-semibold",
+							"text-center font-semibold",
+							"subtitle",
 						)}
 					>
 						{label}

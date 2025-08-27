@@ -15,14 +15,7 @@ export function BaseScreen(
 			<header className="flex items-center justify-between gap-3">
 				<div className="space-y-1">
 					<h1>{title}</h1>
-					<p
-						className={cn(
-							"text-xs uppercase tracking-wide",
-							"text-muted-2-reverse",
-						)}
-					>
-						Inventory App
-					</p>
+					<p className={cn("subtitle text-muted-2-reverse")}>Inventory App</p>
 				</div>
 
 				<div>
