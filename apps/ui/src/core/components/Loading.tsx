@@ -1,13 +1,13 @@
 import { cn } from "@/lib/tailwind";
+import { Portal } from "@ark-ui/react/portal";
 import { Progress } from "@ark-ui/react/progress";
-import { Portal } from "radix-ui";
 import type { ReactNode } from "react";
 
 export function Loading(props: { label?: ReactNode }) {
 	const { label = "Loading..." } = props;
 
 	return (
-		<Portal.Root>
+		<Portal>
 			<Progress.Root
 				/** Indeterminate */
 				defaultValue={null}
@@ -45,6 +45,6 @@ export function Loading(props: { label?: ReactNode }) {
 					<Progress.CircleRange />
 				</Progress.Circle>
 			</Progress.Root>
-		</Portal.Root>
+		</Portal>
 	);
 }
