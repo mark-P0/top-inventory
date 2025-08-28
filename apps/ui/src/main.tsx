@@ -8,6 +8,7 @@ import { routeTree } from "./routeTree.gen";
 import "./core/styles/main.css";
 import { ErrorScreen } from "./core/errors/ErrorScreen.tsx";
 import { NotFoundScreen } from "./core/errors/not-found/NotFoundScreen.tsx";
+import { DefaultQueryClientProvider } from "./core/tanstack-query/QueryClient.tsx";
 import reportWebVitals from "./reportWebVitals.ts";
 
 // Create a new router instance
@@ -37,7 +38,9 @@ if (rootElement && !rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
 	root.render(
 		<StrictMode>
-			<RouterProvider router={router} />
+			<DefaultQueryClientProvider>
+				<RouterProvider router={router} />
+			</DefaultQueryClientProvider>
 		</StrictMode>,
 	);
 }
