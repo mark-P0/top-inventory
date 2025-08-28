@@ -5,7 +5,7 @@ import ReactDOM from "react-dom/client";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 
-import "./styles.css";
+import "./core/styles/main.css";
 import { ErrorScreen } from "./core/errors/ErrorScreen.tsx";
 import { NotFoundScreen } from "./core/errors/not-found/NotFoundScreen.tsx";
 import reportWebVitals from "./reportWebVitals.ts";

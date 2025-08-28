@@ -1,0 +1,12 @@
+@utility size-sv {
+	width: 100svw;
+	height: 100svh;
+}
+
+@utility subtitle {
+	@apply text-xs uppercase tracking-wide;
+}
+
+@utility selection {
+	@apply selection:text-amber-800 selection:bg-amber-400;
+}
