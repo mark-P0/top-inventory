@@ -74,12 +74,7 @@ export function NewCategoryModal(props: { className?: string }) {
 	}
 
 	return (
-		<Dialog
-			lazyMount
-			unmountOnExit
-			open={open}
-			onOpenChange={({ open }) => setIsOpen(open)}
-		>
+		<Dialog open={open} onOpenChange={({ open }) => setIsOpen(open)}>
 			<DialogTrigger
 				className={cn(
 					"hover:bg-muted-1",

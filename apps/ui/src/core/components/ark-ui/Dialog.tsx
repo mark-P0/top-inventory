@@ -3,9 +3,18 @@ import { Dialog as ArkDialog, Portal } from "@ark-ui/react";
 import { XIcon } from "lucide-react";
 import type { ComponentProps } from "react";
 
-export const Dialog = ArkDialog.Root;
 export const DialogTitle = ArkDialog.Title;
 export const DialogDescription = ArkDialog.Description;
+
+export function Dialog(props: ComponentProps<typeof ArkDialog.Root>) {
+	return (
+		<ArkDialog.Root
+			{...props}
+			lazyMount={props.lazyMount ?? true}
+			unmountOnExit={props.unmountOnExit ?? true}
+		/>
+	);
+}
 
 export function DialogTrigger(props: ComponentProps<typeof ArkDialog.Trigger>) {
 	return (
