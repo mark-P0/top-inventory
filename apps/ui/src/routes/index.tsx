@@ -5,6 +5,7 @@ import { Screen } from "@/core/components/screen/Screen";
 import { cn } from "@/lib/tailwind";
 import { iife } from "@/lib/utils";
 import { Link, createFileRoute } from "@tanstack/react-router";
+import { SquareArrowUpRightIcon } from "lucide-react";
 import { type PropsWithChildren, Suspense, use } from "react";
 import { NewCategoryModal } from "./-components/NewCategoryModal";
 
@@ -76,9 +77,7 @@ function CategoryListItems() {
 
 	return categoryRecord.map(({ category, itemTypeCt }) => (
 		<li key={category.name_id}>
-			<CategoryLink category={category}>
-				<CategoryCard category={category} itemTypeCt={itemTypeCt} />
-			</CategoryLink>
+			<CategoryCard category={category} itemTypeCt={itemTypeCt} />
 		</li>
 	));
 }
@@ -88,7 +87,7 @@ function CategoryLink(props: PropsWithChildren<{ category: PublicCategory }>) {
 
 	return (
 		<Link to="/$categoryNameId" params={{ categoryNameId: category.name_id }}>
-			{props.children}
+			<SquareArrowUpRightIcon className="size-5 text-muted-1-reverse" />
 		</Link>
 	);
 }
@@ -104,20 +103,14 @@ function CategoryCard(props: { category: PublicCategory; itemTypeCt: number }) {
 				<h2>{category.name}</h2>
 			</header>
 
-			<footer
-				className={cn(
-					"flex items-center justify-between gap-3",
-					"text-sm",
-					"text-muted-2-reverse",
-				)}
-			>
-				<p>
+			<footer className="flex items-end justify-between gap-3">
+				<p className={cn("text-sm text-muted-2-reverse")}>
 					Item Types: <span className="font-bold">{itemTypeCt}</span>
-				</p>
-
-				<p>
+					<br />
 					Total Items: <span className="font-bold">{totalItemCt}</span>
 				</p>
+
+				<CategoryLink category={category} />
 			</footer>
 		</Card>
 	);
