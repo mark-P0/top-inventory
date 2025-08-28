@@ -1,11 +1,17 @@
 import { type PublicCategory, getCategories } from "@/core/api/codegen";
 import { Card } from "@/core/components/Card";
 import { Loading } from "@/core/components/Loading";
+import {
+	Menu,
+	MenuContent,
+	MenuItem,
+	MenuTrigger,
+} from "@/core/components/ark-ui/Menu";
 import { Screen } from "@/core/components/screen/Screen";
 import { cn } from "@/lib/tailwind";
 import { iife } from "@/lib/utils";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { SquareArrowUpRightIcon } from "lucide-react";
+import { EllipsisVerticalIcon, SquareArrowUpRightIcon } from "lucide-react";
 import { type PropsWithChildren, Suspense, use } from "react";
 import { NewCategoryModal } from "./-components/NewCategoryModal";
 
@@ -99,8 +105,9 @@ function CategoryCard(props: { category: PublicCategory; itemTypeCt: number }) {
 
 	return (
 		<Card className="aspect-[4/3]">
-			<header>
+			<header className="flex items-start justify-between gap-3">
 				<h2>{category.name}</h2>
+				<CategoryCardMenu category={category} />
 			</header>
 
 			<footer className="flex items-end justify-between gap-3">
@@ -113,5 +120,26 @@ function CategoryCard(props: { category: PublicCategory; itemTypeCt: number }) {
 				<CategoryLink category={category} />
 			</footer>
 		</Card>
+	);
+}
+
+function CategoryCardMenu(props: { category: PublicCategory }) {
+	const { category } = props;
+
+	return (
+		<Menu>
+			<MenuTrigger>
+				<EllipsisVerticalIcon className="size-5" />
+			</MenuTrigger>
+
+			<MenuContent>
+				<MenuItem value="edit">
+					Edit <span className="font-semibold">{category.name}</span>
+				</MenuItem>
+				<MenuItem value="delete" disabled>
+					Delete <span className="font-semibold">{category.name}</span>
+				</MenuItem>
+			</MenuContent>
+		</Menu>
 	);
 }
