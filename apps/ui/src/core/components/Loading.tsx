@@ -1,6 +1,5 @@
 import { cn } from "@/lib/tailwind";
-import { Portal } from "@ark-ui/react/portal";
-import { Progress } from "@ark-ui/react/progress";
+import { Portal, Progress } from "@ark-ui/react";
 import type { ReactNode } from "react";
 
 export function Loading(props: { label?: ReactNode }) {
