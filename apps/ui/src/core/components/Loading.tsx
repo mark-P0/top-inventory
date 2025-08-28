@@ -1,6 +1,6 @@
 import { cn } from "@/lib/tailwind";
 import { Progress } from "@ark-ui/react/progress";
-import { Portal, VisuallyHidden } from "radix-ui";
+import { Portal } from "radix-ui";
 import type { ReactNode } from "react";
 
 export function Loading(props: { label?: ReactNode }) {
@@ -40,12 +40,10 @@ export function Loading(props: { label?: ReactNode }) {
 				</div>
 				<Progress.ValueText />
 
-				<VisuallyHidden.Root>
-					<Progress.Circle>
-						<Progress.CircleTrack />
-						<Progress.CircleRange />
-					</Progress.Circle>
-				</VisuallyHidden.Root>
+				<Progress.Circle className="sr-only">
+					<Progress.CircleTrack />
+					<Progress.CircleRange />
+				</Progress.Circle>
 			</Progress.Root>
 		</Portal.Root>
 	);
