@@ -14,6 +14,8 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { EllipsisVerticalIcon, SquareArrowUpRightIcon } from "lucide-react";
 import { type PropsWithChildren, Suspense, use } from "react";
 import { NewCategoryModal } from "./-components/NewCategoryModal";
+import { EditCategoryModal } from "./-components/edit-category/EditCategoryModal";
+import { useEditCategoryModalStore } from "./-components/edit-category/useEditCategoryModalStore";
 
 function getCategoryItemTypeCt(category: PublicCategory) {
 	const itemTypeUuids = new Set<string>();
@@ -58,6 +60,8 @@ function CategoriesScreen() {
 	return (
 		<Screen title="Categories">
 			<CategoryList />
+
+			<EditCategoryModal />
 		</Screen>
 	);
 }
@@ -126,6 +130,12 @@ function CategoryCard(props: { category: PublicCategory; itemTypeCt: number }) {
 function CategoryCardMenu(props: { category: PublicCategory }) {
 	const { category } = props;
 
+	const { setCategoryToEdit } = useEditCategoryModalStore();
+
+	function editCategory() {
+		setCategoryToEdit(category);
+	}
+
 	return (
 		<Menu>
 			<MenuTrigger>
@@ -133,7 +143,7 @@ function CategoryCardMenu(props: { category: PublicCategory }) {
 			</MenuTrigger>
 
 			<MenuContent>
-				<MenuItem value="edit">
+				<MenuItem value="edit" onClick={editCategory}>
 					Edit <span className="font-semibold">{category.name}</span>
 				</MenuItem>
 				<MenuItem value="delete" disabled>
