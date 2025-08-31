@@ -21,6 +21,7 @@
     "@tanstack/react-router-devtools": "^1.131.5",
     "@tanstack/router-plugin": "^1.121.2",
     "clsx": "^2.1.1",
+    "es-toolkit": "^1.39.10",
     "lucide-react": "^0.541.0",
     "radix-ui": "^1.4.3",
     "react": "^19.0.0",
