@@ -18,7 +18,7 @@ class ItemType(SQLModel, table=True):
 
     created_at: datetime = created_at_field()
     updated_at: datetime = updated_at_field()
-    deleted_at: datetime = deleted_at_field()
+    deleted_at: datetime | None = deleted_at_field()
 
 
 class Item(SQLModel, table=True):
@@ -34,7 +34,7 @@ class Item(SQLModel, table=True):
 
     created_at: datetime = created_at_field()
     updated_at: datetime = updated_at_field()
-    deleted_at: datetime = deleted_at_field()
+    deleted_at: datetime | None = deleted_at_field()
 
 
 class Category(SQLModel, table=True):
@@ -48,4 +48,4 @@ class Category(SQLModel, table=True):
 
     created_at: datetime = created_at_field()
     updated_at: datetime = updated_at_field()
-    deleted_at: datetime = deleted_at_field()
+    deleted_at: datetime | None = deleted_at_field()
