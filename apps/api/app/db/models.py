@@ -1,6 +1,9 @@
+from datetime import datetime
 from uuid import UUID, uuid4
 
 from sqlmodel import Field, Relationship, SQLModel
+
+from app.lib.sqlmodel.timestamps import created_at_field, updated_at_field
 
 
 class ItemType(SQLModel, table=True):
@@ -8,6 +11,9 @@ class ItemType(SQLModel, table=True):
     uuid: UUID = Field(unique=True, default_factory=uuid4)
 
     name: str
+
+    created_at: datetime = created_at_field()
+    updated_at: datetime = updated_at_field()
 
 
 class Item(SQLModel, table=True):
@@ -21,6 +27,9 @@ class Item(SQLModel, table=True):
 
     item_type: ItemType = Relationship()
 
+    created_at: datetime = created_at_field()
+    updated_at: datetime = updated_at_field()
+
 
 class Category(SQLModel, table=True):
     id: int | None = Field(primary_key=True, default=None)
@@ -30,3 +39,6 @@ class Category(SQLModel, table=True):
     name: str
 
     items: list["Item"] = Relationship()
+
+    created_at: datetime = created_at_field()
+    updated_at: datetime = updated_at_field()
