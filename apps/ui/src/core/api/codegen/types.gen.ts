@@ -182,6 +182,34 @@ export type NewCategoryResponses = {
 
 export type NewCategoryResponse2 = NewCategoryResponses[keyof NewCategoryResponses];
 
+export type RemoveCategoryData = {
+    body?: never;
+    path: {
+        /**
+         * Uuid
+         */
+        uuid: string;
+    };
+    query?: never;
+    url: '/categories/{uuid}';
+};
+
+export type RemoveCategoryErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type RemoveCategoryError = RemoveCategoryErrors[keyof RemoveCategoryErrors];
+
+export type RemoveCategoryResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
 export type EditCategoryData = {
     body: EditCategoryBody;
     path: {

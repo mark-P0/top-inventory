@@ -14,6 +14,8 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { EllipsisVerticalIcon, SquareArrowUpRightIcon } from "lucide-react";
 import { type PropsWithChildren, Suspense, use } from "react";
 import { NewCategoryModal } from "./-components/NewCategoryModal";
+import { RemoveCategoryModal } from "./-components/delete-category/RemoveCategoryModal";
+import { useDeleteCategoryModalStore } from "./-components/delete-category/useDeleteCategoryModalStore";
 import { EditCategoryModal } from "./-components/edit-category/EditCategoryModal";
 import { useEditCategoryModalStore } from "./-components/edit-category/useEditCategoryModalStore";
 
@@ -62,6 +64,7 @@ function CategoriesScreen() {
 			<CategoryList />
 
 			<EditCategoryModal />
+			<RemoveCategoryModal />
 		</Screen>
 	);
 }
@@ -131,9 +134,16 @@ function CategoryCardMenu(props: { category: PublicCategory }) {
 	const { category } = props;
 
 	const { setCategoryToEdit } = useEditCategoryModalStore();
+	const openDeleteModalWithCategory = useDeleteCategoryModalStore(
+		(store) => store.openModalWithCategory,
+	);
 
 	function editCategory() {
 		setCategoryToEdit(category);
+	}
+
+	function deleteCategory() {
+		openDeleteModalWithCategory(category);
 	}
 
 	return (
@@ -146,7 +156,7 @@ function CategoryCardMenu(props: { category: PublicCategory }) {
 				<MenuItem value="edit" onClick={editCategory}>
 					Edit <span className="font-semibold">{category.name}</span>
 				</MenuItem>
-				<MenuItem value="delete" disabled>
+				<MenuItem value="delete" onClick={deleteCategory}>
 					Delete <span className="font-semibold">{category.name}</span>
 				</MenuItem>
 			</MenuContent>
