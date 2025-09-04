@@ -3,6 +3,7 @@ from fastapi import APIRouter, HTTPException, status
 from app.db import SessionDependency
 from app.db.categories import (
     EditCategoryData,
+    GetAllCategoriesFilter,
     create_category,
     delete_category,
     get_all_categories,
@@ -28,9 +29,9 @@ def get_categories(
 ) -> GetCategoriesResponse:
     db_categories = get_all_categories(
         session,
-        filter={
-            "name_id": query.filter_name_id,
-        },
+        filter=GetAllCategoriesFilter(
+            name_id=query.filter_name_id,
+        ),
     )
 
     public_categories = [

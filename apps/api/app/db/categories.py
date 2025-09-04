@@ -1,4 +1,4 @@
-from typing import Literal, TypedDict
+from typing import Literal
 
 from pydantic import BaseModel
 from pydash import kebab_case
@@ -10,8 +10,8 @@ from app.db.models import Category
 from app.lib.python.typing import as_any
 
 
-class GetAllFilter(TypedDict):
-    name_id: str | None
+class GetAllCategoriesFilter(BaseModel):
+    name_id: str | None = None
 
 
 class EditCategoryData(BaseModel):
@@ -33,7 +33,7 @@ class EditCategoryResult(BaseModel):
 def get_all_categories(
     session: SessionDependency,
     /,
-    filter: GetAllFilter,
+    filter: GetAllCategoriesFilter,
     active_only: bool = True,
 ):
     def statement():
@@ -42,8 +42,8 @@ def get_all_categories(
         if active_only:
             _statement = _statement.where(Category.deleted_at == None)  # noqa: E711 -- Seems unsupported
 
-        if filter["name_id"] is not None:
-            _statement = _statement.where(Category.name_id == filter["name_id"])
+        if filter.name_id is not None:
+            _statement = _statement.where(Category.name_id == filter.name_id)
 
         _statement = _statement.order_by(col(Category.created_at))
 
