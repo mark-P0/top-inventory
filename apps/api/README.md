@@ -24,3 +24,11 @@ uv run alembic upgrade head
 
 - `SQLModel` models file are imported, then the metadata is given to Alembic
 - Without this, auto-generating migrations is not possible!
+
+### Downgrading / Undoing migrations
+
+```sh
+uv run alembic downgrade -1            # Downgrade most recent migration
+uv run alembic downgrade 1975ea83b712  # Downgrade specific migration (uses revision ID)
+uv run alembic downgrade base          # Downgrade all migrations
+```
