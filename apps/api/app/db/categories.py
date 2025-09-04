@@ -2,10 +2,12 @@ from typing import Literal, TypedDict
 
 from pydantic import BaseModel
 from pydash import kebab_case
+from sqlalchemy import sql
 from sqlmodel import col, or_, select
 
 from app.db import SessionDependency
 from app.db.models import Category
+from app.lib.python.typing import as_any
 
 
 class GetAllFilter(TypedDict):
@@ -111,3 +113,28 @@ def update_category(
         success=True,
         data=category,
     )
+
+
+def delete_category(
+    session: SessionDependency,
+    /,
+    uuid: str,
+):
+    category = session.exec(
+        select(Category).where(
+            Category.uuid == uuid,
+        ),
+    ).one_or_none()
+    if category is None:
+        return EditCategoryResult(
+            success=False,
+            error="CATEGORY_NOT_EXISTING",
+        )
+
+    category.deleted_at = as_any(
+        sql.func.now(),
+        reason="Runs but incorrect typing. Docs, examples suggest traditional way of assigning SQL functions",
+    )
+
+    session.add(category)
+    session.commit()

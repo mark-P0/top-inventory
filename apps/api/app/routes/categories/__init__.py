@@ -4,6 +4,7 @@ from app.db import SessionDependency
 from app.db.categories import (
     EditCategoryData,
     create_category,
+    delete_category,
     get_all_categories,
     update_category,
 )
@@ -106,4 +107,19 @@ def edit_category(
             category,
             with_items=True,
         ),
+    )
+
+
+@CategoriesRouter.delete("/{uuid}")
+def remove_category(
+    session: SessionDependency,
+    uuid: str,
+):
+    delete_category(
+        session,
+        uuid=uuid,
+    )
+
+    return dict(
+        data=True,
     )
