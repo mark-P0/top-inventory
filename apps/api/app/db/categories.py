@@ -2,7 +2,7 @@ from typing import Literal, TypedDict
 
 from pydantic import BaseModel
 from pydash import kebab_case
-from sqlmodel import or_, select
+from sqlmodel import col, or_, select
 
 from app.db import SessionDependency
 from app.db.models import Category
@@ -33,11 +33,17 @@ def get_all_categories(
     /,
     filter: GetAllFilter,
 ):
-    statement = select(Category)
-    if filter["name_id"] is not None:
-        statement = statement.where(Category.name_id == filter["name_id"])
+    def statement():
+        _statement = select(Category)
 
-    result = session.exec(statement).all()
+        if filter["name_id"] is not None:
+            _statement = _statement.where(Category.name_id == filter["name_id"])
+
+        _statement = _statement.order_by(col(Category.created_at))
+
+        return _statement
+
+    result = session.exec(statement()).all()
 
     return result
 
