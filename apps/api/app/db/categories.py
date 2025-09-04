@@ -34,9 +34,13 @@ def get_all_categories(
     session: SessionDependency,
     /,
     filter: GetAllFilter,
+    active_only: bool = True,
 ):
     def statement():
         _statement = select(Category)
+
+        if active_only:
+            _statement = _statement.where(Category.deleted_at == None)  # noqa: E711 -- Seems unsupported
 
         if filter["name_id"] is not None:
             _statement = _statement.where(Category.name_id == filter["name_id"])
