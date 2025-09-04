@@ -29,3 +29,12 @@ def updated_at_field() -> datetime:
             onupdate=sql.func.now(),
         ),
     )
+
+
+def deleted_at_field() -> datetime:
+    return Field(
+        sa_column=Column(
+            DateTime(timezone=True),
+            default=None,
+        ),
+    )
