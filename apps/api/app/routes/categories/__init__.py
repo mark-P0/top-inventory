@@ -1,8 +1,15 @@
 from fastapi import APIRouter, HTTPException, status
 
 from app.db import SessionDependency
-from app.db.categories import create_category, get_all_categories
+from app.db.categories import (
+    EditCategoryData,
+    create_category,
+    get_all_categories,
+    update_category,
+)
 from app.routes.categories.validations import (
+    EditCategoryBody,
+    EditCategoryResponse,
     GetCategoriesQuery,
     GetCategoriesResponse,
     NewCategoryBody,
@@ -64,5 +71,39 @@ def new_category(
         data=PublicCategory.from_db(
             category,
             with_items=False,
+        ),
+    )
+
+
+@CategoriesRouter.patch("/{uuid}")
+def edit_category(
+    session: SessionDependency,
+    uuid: str,
+    body: EditCategoryBody,
+) -> EditCategoryResponse:
+    result = update_category(
+        session,
+        uuid=uuid,
+        data=EditCategoryData(
+            name=body.category_name,
+        ),
+    )
+    if result.error == "CATEGORY_NOT_EXISTING":
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Category does not exist",
+        )
+
+    category = result.data
+    if category is None:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Category not updated?",
+        )
+
+    return EditCategoryResponse(
+        data=PublicCategory.from_db(
+            category,
+            with_items=True,
         ),
     )

@@ -64,15 +64,23 @@ class GetCategoriesQueryRaw(BaseModel):
     filter_name_id: Annotated[str | None, Query(alias="filter[name_id]")] = None
 
 
-class GetCategoriesResponse(BaseModel):
-    data: list[PublicCategory]
-
-
 class NewCategoryBody(BaseModel):
     category_name: str
 
 
+class EditCategoryBody(BaseModel):
+    category_name: str | None = None
+
+
+class GetCategoriesResponse(BaseModel):
+    data: list[PublicCategory]
+
+
 class NewCategoryResponse(BaseModel):
+    data: PublicCategory
+
+
+class EditCategoryResponse(BaseModel):
     data: PublicCategory
 
 

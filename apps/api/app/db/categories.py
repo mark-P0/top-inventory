@@ -12,13 +12,27 @@ class GetAllFilter(TypedDict):
     name_id: str | None
 
 
+class EditCategoryData(BaseModel):
+    name: str | None = None
+
+
 class AddCategoryResult(BaseModel):
     success: bool
     error: None | Literal["CATEGORY_ALREADY_EXISTING"] = None
     data: "None | Category" = None
 
 
-def get_all_categories(session: SessionDependency, /, filter: GetAllFilter):
+class EditCategoryResult(BaseModel):
+    success: bool
+    error: None | Literal["CATEGORY_NOT_EXISTING"] = None
+    data: "None | Category" = None
+
+
+def get_all_categories(
+    session: SessionDependency,
+    /,
+    filter: GetAllFilter,
+):
     statement = select(Category)
     if filter["name_id"] is not None:
         statement = statement.where(Category.name_id == filter["name_id"])
@@ -29,7 +43,9 @@ def get_all_categories(session: SessionDependency, /, filter: GetAllFilter):
 
 
 def create_category(
-    session: SessionDependency, /, category_name: str
+    session: SessionDependency,
+    /,
+    category_name: str,
 ) -> AddCategoryResult:
     name_id = kebab_case(category_name)
 
@@ -56,6 +72,36 @@ def create_category(
     session.commit()
 
     return AddCategoryResult(
+        success=True,
+        data=category,
+    )
+
+
+def update_category(
+    session: SessionDependency,
+    /,
+    uuid: str,
+    data: EditCategoryData,
+):
+    category = session.exec(
+        select(Category).where(
+            Category.uuid == uuid,
+        ),
+    ).one_or_none()
+    if category is None:
+        return EditCategoryResult(
+            success=False,
+            error="CATEGORY_NOT_EXISTING",
+        )
+
+    if data.name is not None:
+        category.name = data.name
+        category.name_id = kebab_case(data.name)
+
+    session.add(category)
+    session.commit()
+
+    return EditCategoryResult(
         success=True,
         data=category,
     )
