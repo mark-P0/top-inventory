@@ -14,6 +14,10 @@ class GetAllCategoriesFilter(BaseModel):
     name_id: str | None = None
 
 
+class GetAllCategoriesSort(BaseModel):
+    created_at: Literal["asc"] = "asc"
+
+
 class EditCategoryData(BaseModel):
     name: str | None = None
 
@@ -33,7 +37,8 @@ class EditCategoryResult(BaseModel):
 def get_all_categories(
     session: SessionDependency,
     /,
-    filter: GetAllCategoriesFilter,
+    filter: GetAllCategoriesFilter = GetAllCategoriesFilter(),
+    sort: GetAllCategoriesSort = GetAllCategoriesSort(),
     active_only: bool = True,
 ):
     def statement():
@@ -45,7 +50,8 @@ def get_all_categories(
         if filter.name_id is not None:
             _statement = _statement.where(Category.name_id == filter.name_id)
 
-        _statement = _statement.order_by(col(Category.created_at))
+        if sort.created_at == "asc":
+            _statement = _statement.order_by(col(Category.created_at))
 
         return _statement
 
