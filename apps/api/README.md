@@ -1,3 +1,9 @@
+## Development
+
+```sh
+uv run fastapi dev
+```
+
 ## Database migrations
 
 ```sh
