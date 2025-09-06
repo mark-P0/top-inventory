@@ -1,9 +1,10 @@
-from typing import Annotated
+from typing import Annotated, ClassVar
 
-from fastapi import Query
+from fastapi import Query, status
 from pydantic import BaseModel
 
 from app.db.models import Category
+from app.lib.fastapi.responses import ErrorResponse
 
 
 class PublicCategoryItemType(BaseModel):
@@ -82,6 +83,30 @@ class NewCategoryResponse(BaseModel):
 
 class EditCategoryResponse(BaseModel):
     data: PublicCategory
+
+
+class NewCategoryAlreadyExistsResponse(ErrorResponse):
+    status_code: int = status.HTTP_409_CONFLICT
+    title: ClassVar[str] = "Existing Category"
+    message: str = "Category already exists"
+
+
+class NewCategoryNotCreatedResponse(ErrorResponse):
+    status_code: int = status.HTTP_502_BAD_GATEWAY
+    title: ClassVar[str] = "Not Created Category"
+    message: str = "Category not created?"
+
+
+class EditCategoryNotExistingResponse(ErrorResponse):
+    status_code: int = status.HTTP_404_NOT_FOUND
+    title: ClassVar[str] = "Non-Existent Category"
+    message: str = "Category does not exist"
+
+
+class EditCategoryNotUpdatedResponse(ErrorResponse):
+    status_code: int = status.HTTP_502_BAD_GATEWAY
+    title: ClassVar[str] = "Not Updated Category"
+    message: str = "Category not updated?"
 
 
 GetCategoriesQuery = Annotated[GetCategoriesQueryRaw, Query()]

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter
 
 from app.db import SessionDependency
 from app.db.categories import (
@@ -9,12 +9,17 @@ from app.db.categories import (
     get_all_categories,
     update_category,
 )
+from app.lib.fastapi.responses import create_responses_dict_from_models
 from app.routes.categories.validations import (
     EditCategoryBody,
+    EditCategoryNotExistingResponse,
+    EditCategoryNotUpdatedResponse,
     EditCategoryResponse,
     GetCategoriesQuery,
     GetCategoriesResponse,
+    NewCategoryAlreadyExistsResponse,
     NewCategoryBody,
+    NewCategoryNotCreatedResponse,
     NewCategoryResponse,
     PublicCategory,
 )
@@ -47,7 +52,13 @@ def get_categories(
     )
 
 
-@CategoriesRouter.post("/")
+@CategoriesRouter.post(
+    "/",
+    responses=create_responses_dict_from_models(
+        NewCategoryAlreadyExistsResponse,
+        NewCategoryNotCreatedResponse,
+    ),
+)
 def new_category(
     session: SessionDependency,
     body: NewCategoryBody,
@@ -57,17 +68,11 @@ def new_category(
         category_name=body.category_name,
     )
     if result.error == "CATEGORY_ALREADY_EXISTING":
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="Category already exists",
-        )
+        raise NewCategoryAlreadyExistsResponse.as_http_exception()
 
     category = result.data
     if category is None:
-        raise HTTPException(
-            status_code=status.HTTP_502_BAD_GATEWAY,
-            detail="Category not created?",
-        )
+        raise NewCategoryNotCreatedResponse.as_http_exception()
 
     return NewCategoryResponse(
         data=PublicCategory.from_db(
@@ -77,7 +82,13 @@ def new_category(
     )
 
 
-@CategoriesRouter.patch("/{uuid}")
+@CategoriesRouter.patch(
+    "/{uuid}",
+    responses=create_responses_dict_from_models(
+        EditCategoryNotExistingResponse,
+        EditCategoryNotUpdatedResponse,
+    ),
+)
 def edit_category(
     session: SessionDependency,
     uuid: str,
@@ -91,17 +102,11 @@ def edit_category(
         ),
     )
     if result.error == "CATEGORY_NOT_EXISTING":
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Category does not exist",
-        )
+        raise EditCategoryNotExistingResponse.as_http_exception()
 
     category = result.data
     if category is None:
-        raise HTTPException(
-            status_code=status.HTTP_502_BAD_GATEWAY,
-            detail="Category not updated?",
-        )
+        raise EditCategoryNotUpdatedResponse.as_http_exception()
 
     return EditCategoryResponse(
         data=PublicCategory.from_db(
