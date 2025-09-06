@@ -1,4 +1,5 @@
 import { newCategory } from "@/core/api/codegen";
+import { Button } from "@/core/components/Button";
 import {
 	Dialog,
 	DialogContent,
@@ -49,17 +50,7 @@ function NewCategoryForm(props: { onSuccess?: () => void }) {
 				</label>
 
 				<footer className="flex flex-row-reverse">
-					<button
-						type="submit"
-						className={cn(
-							"bg-muted-0-reverse text-muted-0",
-							"enabled:hover:cursor-pointer",
-							"px-3 py-2",
-							"font-semibold",
-						)}
-					>
-						Save
-					</button>
+					<Button type="submit">Save</Button>
 				</footer>
 			</fieldset>
 		</form>
@@ -75,16 +66,19 @@ export function NewCategoryModal(props: { className?: string }) {
 
 	return (
 		<Dialog open={open} onOpenChange={({ open }) => setIsOpen(open)}>
-			<DialogTrigger
-				className={cn(
-					"hover:bg-muted-1",
-					"font-semibold",
-					"border-2 border-dashed border-muted-2-reverse",
-					"text-muted-2-reverse",
-					props.className,
-				)}
-			>
-				New Category
+			<DialogTrigger asChild>
+				<Button
+					variant="base"
+					className={cn(
+						"enabled:hover:bg-muted-1",
+						"border-2 border-dashed border-muted-2-reverse",
+						"text-muted-2-reverse",
+						"font-semibold",
+						props.className,
+					)}
+				>
+					New Category
+				</Button>
 			</DialogTrigger>
 
 			<DialogContent className="space-y-6">

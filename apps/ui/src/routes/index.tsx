@@ -1,4 +1,5 @@
 import { type PublicCategory, getCategories } from "@/core/api/codegen";
+import { Button } from "@/core/components/Button";
 import { Card } from "@/core/components/Card";
 import { Loading } from "@/core/components/Loading";
 import {
@@ -100,7 +101,9 @@ function CategoryLink(props: PropsWithChildren<{ category: PublicCategory }>) {
 
 	return (
 		<Link to="/$categoryNameId" params={{ categoryNameId: category.name_id }}>
-			<SquareArrowUpRightIcon className="size-5 text-muted-1-reverse" />
+			<Button variant="icon">
+				<SquareArrowUpRightIcon className="size-5 text-muted-1-reverse" />
+			</Button>
 		</Link>
 	);
 }
@@ -148,8 +151,10 @@ function CategoryCardMenu(props: { category: PublicCategory }) {
 
 	return (
 		<Menu>
-			<MenuTrigger>
-				<EllipsisVerticalIcon className="size-5" />
+			<MenuTrigger asChild>
+				<Button variant="icon">
+					<EllipsisVerticalIcon className="size-5" />
+				</Button>
 			</MenuTrigger>
 
 			<MenuContent>

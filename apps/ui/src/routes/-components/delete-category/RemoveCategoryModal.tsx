@@ -1,4 +1,5 @@
 import { removeCategory } from "@/core/api/codegen";
+import { Button } from "@/core/components/Button";
 import {
 	Dialog,
 	DialogContent,
@@ -6,7 +7,6 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/core/components/ark-ui/Dialog";
-import { cn } from "@/lib/tailwind";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
 import { useEffect } from "react";
@@ -67,18 +67,9 @@ export function RemoveCategoryModal() {
 				</DialogHeader>
 
 				<footer className="flex flex-row-reverse">
-					<button
-						type="button"
-						onClick={deleteCategory}
-						className={cn(
-							"bg-red-600 text-white",
-							"enabled:hover:cursor-pointer",
-							"px-3 py-2",
-							"font-semibold",
-						)}
-					>
+					<Button intent="danger" onClick={deleteCategory}>
 						Remove
-					</button>
+					</Button>
 				</footer>
 			</DialogContent>
 		</Dialog>

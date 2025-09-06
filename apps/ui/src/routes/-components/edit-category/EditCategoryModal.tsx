@@ -1,4 +1,5 @@
 import { type PublicCategory, editCategory } from "@/core/api/codegen";
+import { Button } from "@/core/components/Button";
 import {
 	Dialog,
 	DialogContent,
@@ -60,17 +61,7 @@ function EditCategoryForm(props: {
 				</label>
 
 				<footer className="flex flex-row-reverse">
-					<button
-						type="submit"
-						className={cn(
-							"bg-muted-0-reverse text-muted-0",
-							"enabled:hover:cursor-pointer",
-							"px-3 py-2",
-							"font-semibold",
-						)}
-					>
-						Save
-					</button>
+					<Button type="submit">Save</Button>
 				</footer>
 			</fieldset>
 		</form>

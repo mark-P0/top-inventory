@@ -1,6 +1,7 @@
 import { cn } from "@/lib/tailwind";
 import { Link } from "@tanstack/react-router";
 import { Wrench } from "lucide-react";
+import { Button } from "../components/Button";
 import { BaseScreen } from "../components/screen/BaseScreen";
 
 export function ErrorScreen(props: { errorMsg?: string }) {
@@ -24,7 +25,9 @@ export function ErrorScreen(props: { errorMsg?: string }) {
 						</figcaption>
 					</figure>
 
-					<Link to="/">Go back home</Link>
+					<Link to="/">
+						<Button variant="link">Go back home</Button>
+					</Link>
 				</div>
 			</div>
 		</BaseScreen>

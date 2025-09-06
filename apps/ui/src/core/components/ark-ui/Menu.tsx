@@ -1,6 +1,7 @@
 import { cn } from "@/lib/tailwind";
 import { Menu as ArkMenu } from "@ark-ui/react";
 import type { ComponentProps } from "react";
+import { Button } from "../Button";
 
 export const Menu = ArkMenu.Root;
 
@@ -28,16 +29,15 @@ export function MenuContent(props: ComponentProps<typeof ArkMenu.Content>) {
 }
 
 export function MenuItem(props: ComponentProps<typeof ArkMenu.Item>) {
+	if (props.asChild) {
+		return <ArkMenu.Item {...props} />;
+	}
+
 	return (
-		<ArkMenu.Item
-			{...props}
-			className={cn(
-				"select-none",
-				"not-data-[disabled]:hover:bg-muted-1-reverse not-data-[disabled]:hover:cursor-pointer",
-				"data-[disabled]:text-muted-2-reverse",
-				"px-3 py-1",
-				props.className,
-			)}
-		/>
+		<ArkMenu.Item {...props} asChild>
+			<Button disabled={props.disabled} className="w-full block text-left">
+				{props.children}
+			</Button>
+		</ArkMenu.Item>
 	);
 }

@@ -2,6 +2,7 @@ import { cn } from "@/lib/tailwind";
 import { Dialog as ArkDialog, Portal } from "@ark-ui/react";
 import { XIcon } from "lucide-react";
 import type { ComponentProps } from "react";
+import { Button } from "../Button";
 
 export const DialogTitle = ArkDialog.Title;
 export const DialogDescription = ArkDialog.Description;
@@ -76,8 +77,10 @@ export function DialogHeader(
 			<div {...divProps} />
 
 			{!withoutClose && (
-				<DialogCloseTrigger>
-					<XIcon />
+				<DialogCloseTrigger asChild>
+					<Button variant="icon">
+						<XIcon />
+					</Button>
 				</DialogCloseTrigger>
 			)}
 		</header>

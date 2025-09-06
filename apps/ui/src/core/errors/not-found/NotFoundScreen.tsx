@@ -1,3 +1,4 @@
+import { Button } from "@/core/components/Button";
 import { cn } from "@/lib/tailwind";
 import { Link } from "@tanstack/react-router";
 import { Ghost } from "lucide-react";
@@ -15,7 +16,9 @@ export function NotFoundScreen() {
 						<figcaption className="text-xl font-bold">We got lost</figcaption>
 					</figure>
 
-					<Link to="/">Go back home</Link>
+					<Link to="/">
+						<Button variant="link">Go back home</Button>
+					</Link>
 				</div>
 			</div>
 		</BaseScreen>
