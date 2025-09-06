@@ -1,5 +1,6 @@
 import { newCategory } from "@/core/api/codegen";
 import { Button } from "@/core/components/Button";
+import { Input } from "@/core/components/Input";
 import {
 	Dialog,
 	DialogContent,
@@ -43,9 +44,8 @@ function NewCategoryForm(props: { onSuccess?: () => void }) {
 			<fieldset disabled={form.formState.isSubmitting} className="space-y-6">
 				<label className="grid gap-1">
 					<span className="font-semibold">Category Name</span>
-					<input
+					<Input
 						{...form.register("categoryName", { required: true, min: 1 })}
-						className={cn("bg-muted-0", "px-3 py-2")}
 					/>
 				</label>
 
