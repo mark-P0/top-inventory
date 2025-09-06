@@ -25,7 +25,8 @@
 				"noLabelWithoutControl": {
 					"level": "error",
 					"options": {
-						"inputComponents": ["Input"]
+						"inputComponents": ["Input"],
+						"labelComponents": ["Label"]
 					}
 				}
 			}
