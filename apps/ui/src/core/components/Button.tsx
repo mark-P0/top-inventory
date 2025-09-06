@@ -20,9 +20,9 @@ export function Button(
 				"disabled:bg-transparent disabled:text-current/50",
 
 				variant === "text" && [
-					"disabled:bg-mono-0-reverse/50",
+					"disabled:bg-mono-0-reverse/50 disabled:text-mono-0/50",
 					"enabled:hover:bg-mono-0-reverse/90",
-					"bg-mono-0-reverse text-mono-0!",
+					"bg-mono-0-reverse text-mono-0",
 					"font-semibold",
 					"px-3 py-2",
 				],
