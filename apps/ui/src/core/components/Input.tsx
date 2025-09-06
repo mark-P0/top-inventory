@@ -6,7 +6,9 @@ export function Input(props: ComponentProps<"input">) {
 		<input
 			{...props}
 			className={cn(
-				"bg-muted-0-reverse text-muted-0",
+				"disabled:cursor-not-allowed",
+				"disabled:bg-mono-0-reverse/50 disabled:text-current/50",
+				"bg-mono-0-reverse text-mono-0!",
 				"px-3 py-2",
 				props.className,
 			)}

@@ -18,7 +18,7 @@ export function ErrorScreen(props: { errorMsg?: string }) {
 						<figcaption className="grid gap-1">
 							<span className="text-xl font-bold">Something went wrong</span>
 							{errorMsg !== undefined && (
-								<code className={cn("text-xs", "text-muted-2-reverse")}>
+								<code className={cn("text-xs", "text-mono-2-reverse")}>
 									{errorMsg}
 								</code>
 							)}

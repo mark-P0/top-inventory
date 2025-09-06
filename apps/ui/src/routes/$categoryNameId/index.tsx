@@ -136,14 +136,8 @@ function ItemTypeCard(props: {
 				<h2>{itemType.name}</h2>
 			</header>
 
-			<footer
-				className={cn(
-					"flex items-center justify-between gap-3",
-					"text-sm",
-					"text-muted-2-reverse",
-				)}
-			>
-				<p>
+			<footer className="flex items-center justify-between gap-3">
+				<p className={cn("select-none", "text-sm text-mono-reverse")}>
 					Qty: <span className="font-bold">{itemCt}</span>
 				</p>
 			</footer>

@@ -70,9 +70,9 @@ export function NewCategoryModal(props: { className?: string }) {
 				<Button
 					variant="base"
 					className={cn(
-						"enabled:hover:bg-muted-1",
-						"border-2 border-dashed border-muted-2-reverse",
-						"text-muted-2-reverse",
+						"enabled:hover:bg-current/10",
+						"border-2 border-dashed border-current",
+						"text-mono-reverse",
 						"font-semibold",
 						props.className,
 					)}

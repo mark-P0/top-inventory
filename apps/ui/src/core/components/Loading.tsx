@@ -17,13 +17,13 @@ export function Loading(props: { label?: ReactNode }) {
 						return `${value} of ${max} items loaded`;
 					},
 				}}
-				className={cn("fixed top-0 left-0", "w-svw", "bg-muted-1/50")}
+				className={cn("fixed top-0 left-0", "w-svw", "bg-mono-1/50")}
 			>
 				<div
 					className={cn(
 						"animate-pulse",
 						"absolute -z-10 top-0 left-0 size-full",
-						"bg-muted-2/50",
+						"bg-mono-2/50",
 					)}
 				/>
 				<div className="grid place-items-center">

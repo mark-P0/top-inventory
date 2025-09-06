@@ -57,7 +57,7 @@ export function DialogContent(props: ComponentProps<typeof ArkDialog.Content>) {
 				<ArkDialog.Content
 					{...props}
 					className={cn(
-						"bg-muted-1",
+						"bg-mono-1",
 						"min-w-full lg:min-w-lg p-3",
 						props.className,
 					)}

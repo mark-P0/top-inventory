@@ -20,7 +20,7 @@ export function MenuContent(props: ComponentProps<typeof ArkMenu.Content>) {
 			<ArkMenu.Content
 				{...props}
 				className={cn(
-					"min-w-32 bg-muted-0-reverse text-muted-0 p-1",
+					"min-w-32 bg-mono-0-reverse text-mono-0",
 					props.className,
 				)}
 			/>
@@ -35,7 +35,11 @@ export function MenuItem(props: ComponentProps<typeof ArkMenu.Item>) {
 
 	return (
 		<ArkMenu.Item {...props} asChild>
-			<Button disabled={props.disabled} className="w-full block text-left">
+			<Button
+				variant="ghost"
+				disabled={props.disabled}
+				className="w-full block text-left"
+			>
 				{props.children}
 			</Button>
 		</ArkMenu.Item>

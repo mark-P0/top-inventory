@@ -1,6 +1,6 @@
 @layer base {
 	body {
-		@apply bg-muted-0 text-muted-0-reverse selection;
+		@apply bg-mono-0 text-mono-0-reverse selection;
 	}
 
 	h1 {

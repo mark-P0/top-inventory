@@ -102,7 +102,7 @@ function CategoryLink(props: PropsWithChildren<{ category: PublicCategory }>) {
 	return (
 		<Link to="/$categoryNameId" params={{ categoryNameId: category.name_id }}>
 			<Button variant="icon">
-				<SquareArrowUpRightIcon className="size-5 text-muted-1-reverse" />
+				<SquareArrowUpRightIcon className="size-5 text-mono-reverse" />
 			</Button>
 		</Link>
 	);
@@ -121,7 +121,7 @@ function CategoryCard(props: { category: PublicCategory; itemTypeCt: number }) {
 			</header>
 
 			<footer className="flex items-end justify-between gap-3">
-				<p className={cn("text-sm text-muted-2-reverse")}>
+				<p className={cn("select-none", "text-sm text-mono-reverse")}>
 					Item Types: <span className="font-bold">{itemTypeCt}</span>
 					<br />
 					Total Items: <span className="font-bold">{totalItemCt}</span>
@@ -153,7 +153,7 @@ function CategoryCardMenu(props: { category: PublicCategory }) {
 		<Menu>
 			<MenuTrigger asChild>
 				<Button variant="icon">
-					<EllipsisVerticalIcon className="size-5" />
+					<EllipsisVerticalIcon className="size-5 text-mono-reverse" />
 				</Button>
 			</MenuTrigger>
 

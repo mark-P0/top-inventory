@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@import "./colors.css";
+@import "./colors/mono.css";
 @import "./utilities.css";
 @import "./base.css";
 
