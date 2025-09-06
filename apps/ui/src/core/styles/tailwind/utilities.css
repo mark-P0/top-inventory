@@ -8,5 +8,5 @@
 }
 
 @utility selection {
-	@apply selection:text-amber-800 selection:bg-amber-400;
+	@apply selection:text-warning-0 selection:bg-warning-0-reverse;
 }
