@@ -62,7 +62,7 @@ export function RemoveCategoryModal() {
 							Are you sure you want to remove{" "}
 							<span className="font-bold">{category.name}</span>?
 						</span>
-						<span className="text-red-600">This action cannot be undone!</span>
+						<span className="text-danger">This action cannot be undone!</span>
 					</DialogDescription>
 				</DialogHeader>
 

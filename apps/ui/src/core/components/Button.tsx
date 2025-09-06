@@ -32,10 +32,9 @@ export function Button(
 					"px-3 py-2",
 				],
 				variant === "link" && [
-					"enabled:hover:decoration-current",
-					"enabled:hover:text-mono-0-reverse",
+					"enabled:hover:decoration-current enabled:hover:text-mono-reverse",
 					"underline underline-offset-4 decoration-transparent",
-					"text-mono-2-reverse",
+					"text-mono-reverse/90",
 				],
 				variant === "icon" && [
 					"enabled:hover:bg-current/10",
@@ -44,8 +43,9 @@ export function Button(
 				],
 
 				intent === "danger" && [
-					"enabled:hover:bg-red-500",
-					"bg-red-600 text-white",
+					"disabled:bg-danger-0/50 disabled:text-mono-0-reverse/50",
+					"enabled:hover:bg-danger-0/90",
+					"bg-danger-0 text-mono-0-reverse",
 				],
 
 				buttonProps.className,
