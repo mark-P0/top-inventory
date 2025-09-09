@@ -5,7 +5,7 @@ from pydash import kebab_case
 from sqlalchemy import sql
 from sqlmodel import col, or_, select
 
-from app.db import SessionDependency
+from app.core.dependencies.db import SessionDependency
 from app.db.models import Category
 from app.lib.python.typing import as_any
 

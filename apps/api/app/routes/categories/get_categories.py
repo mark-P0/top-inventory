@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import Query
 from pydantic import BaseModel
 
-from app.db import SessionDependency
+from app.core.dependencies.db import SessionDependency
 from app.db.categories import GetAllCategoriesFilter, get_all_categories
 from app.routes.categories.validations import PublicCategory
 

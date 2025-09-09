@@ -3,7 +3,7 @@ from typing import Literal
 from pydantic import BaseModel
 from sqlmodel import select
 
-from app.db import SessionDependency
+from app.core.dependencies.db import SessionDependency
 from app.db.models import ItemType
 
 

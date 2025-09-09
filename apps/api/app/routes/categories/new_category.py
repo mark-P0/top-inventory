@@ -3,7 +3,7 @@ from typing import ClassVar
 from fastapi import status
 from pydantic import BaseModel
 
-from app.db import SessionDependency
+from app.core.dependencies.db import SessionDependency
 from app.db.categories import create_category
 from app.lib.fastapi.responses import ErrorResponse, create_responses_dict_from_models
 from app.routes.categories.validations import PublicCategory

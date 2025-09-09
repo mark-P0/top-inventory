@@ -3,7 +3,7 @@ from typing import ClassVar
 from fastapi import status
 from pydantic import BaseModel, Field
 
-from app.db import SessionDependency
+from app.core.dependencies.db import SessionDependency
 from app.db.categories import GetAllCategoriesFilter, get_all_categories
 from app.db.item_types import create_item_type
 from app.db.items import create_items

@@ -1,4 +1,4 @@
-from app.db import SessionDependency
+from app.core.dependencies.db import SessionDependency
 from app.db.models import Item
 
 
