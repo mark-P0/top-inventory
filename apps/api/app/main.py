@@ -6,6 +6,7 @@ from app.core.settings import Settings
 from app.db import initialize_db
 from app.lib.fastapi.openapi import use_route_names_as_operation_ids
 from app.routes.categories import CategoriesRouter
+from app.routes.item_types import ItemTypesRouter
 
 
 @asynccontextmanager
@@ -29,6 +30,7 @@ app = FastAPI(
 )
 
 app.include_router(CategoriesRouter)
+app.include_router(ItemTypesRouter)
 
 
 use_route_names_as_operation_ids(app)
