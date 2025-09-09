@@ -13,6 +13,7 @@ RequiredField = Field(default=...)
 class _Settings(BaseSettings):
     REVERSE_PROXY_ROOT_PATH: str = "/api"
     DB_URL: str = RequiredField
+    MUTATION_TOKEN: str = RequiredField
 
     model_config = SettingsConfigDict(env_file=".env")
 
