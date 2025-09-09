@@ -3,6 +3,7 @@ from typing import ClassVar
 from fastapi import status
 from pydantic import BaseModel
 
+from app.core.dependencies.mutation_token import MutationTokenDependency
 from app.db import SessionDependency
 from app.db.categories import EditCategoryData, update_category
 from app.lib.fastapi.responses import ErrorResponse, create_responses_dict_from_models
@@ -37,6 +38,7 @@ edit_category_responses = create_responses_dict_from_models(
 
 def edit_category(
     session: SessionDependency,
+    _: MutationTokenDependency,
     uuid: str,
     body: RequestBody,
 ) -> ResponseBody:
