@@ -22,9 +22,11 @@ function EditCategoryForm(props: {
 	const router = useRouter();
 
 	const form = useForm<{
+		mutationToken: string;
 		categoryName: string;
 	}>({
 		defaultValues: {
+			mutationToken: "",
 			categoryName: category.name,
 		},
 	});
@@ -33,6 +35,9 @@ function EditCategoryForm(props: {
 		const result = await editCategory({
 			path: {
 				uuid: category.uuid,
+			},
+			headers: {
+				authorization: `Bearer ${formData.mutationToken}`,
 			},
 			body: {
 				category_name: formData.categoryName,
@@ -53,12 +58,22 @@ function EditCategoryForm(props: {
 	return (
 		<form onSubmit={updateCategory}>
 			<fieldset disabled={form.formState.isSubmitting} className="space-y-6">
-				<Label className="grid gap-1">
-					<span className="font-semibold">Category Name</span>
-					<Input
-						{...form.register("categoryName", { required: true, min: 1 })}
-					/>
-				</Label>
+				<div className="space-y-3">
+					<Label className="grid gap-1">
+						<span className="font-semibold">Token</span>
+						<Input
+							{...form.register("mutationToken", { required: true, min: 1 })}
+							type="password"
+						/>
+					</Label>
+
+					<Label className="grid gap-1">
+						<span className="font-semibold">Category Name</span>
+						<Input
+							{...form.register("categoryName", { required: true, min: 1 })}
+						/>
+					</Label>
+				</div>
 
 				<footer className="flex flex-row-reverse">
 					<Button type="submit">Save</Button>

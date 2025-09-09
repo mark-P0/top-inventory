@@ -318,6 +318,12 @@ export type RemoveCategoryResponses = {
 
 export type EditCategoryData = {
     body: AppRoutesCategoriesEditCategoryRequestBody;
+    headers: {
+        /**
+         * Authorization
+         */
+        authorization: string;
+    };
     path: {
         /**
          * Uuid
