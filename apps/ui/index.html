@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-tsrouter-app"
+    />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>Create TanStack App - ui</title>
+
+    <script>
+      /** 
+       * Implemented in HTML <head> to prevent FOUC
+       * 
+       * https://tailwindcss.com/docs/dark-mode#with-system-theme-support
+       */
+      const Theme = (() => {
+        const DARK_MODE_CLASS_NAME = "dark";
+        const LOCAL_STORAGE_KEY = "theme";
+        const USER_PREFERENCE_MEDIA_QUERY = "(prefers-color-scheme: dark)";
+
+        function isDarkModeEnabled() {
+          const isLocalStorageDark =
+            localStorage.getItem(LOCAL_STORAGE_KEY) === DARK_MODE_CLASS_NAME;
+          const isLocalStorageThemeSet = LOCAL_STORAGE_KEY in localStorage;
+          const isUserPreferenceDark = window.matchMedia(
+            USER_PREFERENCE_MEDIA_QUERY,
+          ).matches;
+
+          if (isLocalStorageDark) {
+            return true;
+          }
+          if (!isLocalStorageThemeSet && isUserPreferenceDark) {
+            return true;
+          }
+
+          return false;
+        }
+
+        function reflectLocalStorageInDocumentElementClasses() {
+          // document.documentElement.classList.toggle(
+          //   DARK_MODE_CLASS_NAME,
+          //   isLocalStorageDark ||
+          //     (!isLocalStorageThemeSet && isUserPreferenceDark),
+          // );
+
+          document.documentElement.classList.toggle(
+            DARK_MODE_CLASS_NAME,
+            isDarkModeEnabled(),
+          );
+        }
+
+        return {
+          LOCAL_STORAGE_KEY,
+          reflectLocalStorageInDocumentElementClasses,
+        };
+      })();
+
+      Theme.reflectLocalStorageInDocumentElementClasses()
+    </script>
+    
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

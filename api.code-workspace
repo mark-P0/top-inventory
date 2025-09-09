@@ -1,0 +1,25 @@
+{
+    "folders": [
+        {
+            "path": "./apps/api"
+        }
+    ],
+    "settings": {
+        "[python]": {
+            "editor.defaultFormatter": "charliermarsh.ruff"
+        },
+        "editor.codeActionsOnSave": {
+            "source.organizeImports.ruff": "always"
+        },
+        "editor.inlayHints.enabled": "offUnlessPressed",
+        "python.analysis.autoImportCompletions": true,
+        "python.analysis.inlayHints.functionReturnTypes": true,
+        "python.analysis.inlayHints.variableTypes": true,
+        "python.analysis.typeCheckingMode": "strict"
+    },
+    "extensions": {
+        "recommendations": [
+            "charliermarsh.ruff"
+        ]
+    }
+}

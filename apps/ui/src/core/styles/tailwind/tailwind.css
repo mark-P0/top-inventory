@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@import "./colors/mono.css";
+@import "./colors/intent/warning.css";
+@import "./colors/intent/danger.css";
+@import "./utilities.css";
+@import "./base.css";
+
+/** https://tailwindcss.com/docs/dark-mode#with-system-theme-support */
+@custom-variant dark (&:where(.dark, .dark *));
