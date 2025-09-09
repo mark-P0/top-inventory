@@ -1,5 +1,7 @@
 import { type PublicCategory, removeCategory } from "@/core/api/codegen";
 import { Button } from "@/core/components/Button";
+import { Input } from "@/core/components/Input";
+import { Label } from "@/core/components/Label";
 import {
 	Dialog,
 	DialogContent,
@@ -18,7 +20,13 @@ function RemoveCategoryForm(props: {
 }) {
 	const { category } = props;
 
-	const form = useForm();
+	const form = useForm<{
+		mutationToken: string;
+	}>({
+		defaultValues: {
+			mutationToken: "",
+		},
+	});
 
 	const deleteCategory = form.handleSubmit(async (formData) => {
 		const result = await removeCategory({
@@ -43,6 +51,16 @@ function RemoveCategoryForm(props: {
 	return (
 		<form onSubmit={deleteCategory}>
 			<fieldset disabled={form.formState.isSubmitting} className="space-y-6">
+				<div className="space-y-3">
+					<Label className="grid gap-1">
+						<span className="font-semibold">Token</span>
+						<Input
+							{...form.register("mutationToken", { required: true, min: 1 })}
+							type="password"
+						/>
+					</Label>
+				</div>
+
 				<footer className="flex flex-row-reverse">
 					<Button type="submit" intent="danger">
 						Remove

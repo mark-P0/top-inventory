@@ -290,6 +290,12 @@ export type NewCategoryResponse = NewCategoryResponses[keyof NewCategoryResponse
 
 export type RemoveCategoryData = {
     body?: never;
+    headers: {
+        /**
+         * Authorization
+         */
+        authorization: string;
+    };
     path: {
         /**
          * Uuid
