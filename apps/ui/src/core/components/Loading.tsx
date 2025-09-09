@@ -1,0 +1,49 @@
+import { cn } from "@/lib/tailwind";
+import { Portal, Progress } from "@ark-ui/react";
+import type { ReactNode } from "react";
+
+export function Loading(props: { label?: ReactNode }) {
+	const { label = "Loading..." } = props;
+
+	return (
+		<Portal>
+			<Progress.Root
+				/** Indeterminate */
+				defaultValue={null}
+				translations={{
+					/** Value text */
+					value({ value, max }) {
+						if (value === null) return "Loading...";
+						return `${value} of ${max} items loaded`;
+					},
+				}}
+				className={cn("fixed top-0 left-0", "w-svw", "bg-mono-1/50")}
+			>
+				<div
+					className={cn(
+						"animate-pulse",
+						"absolute -z-10 top-0 left-0 size-full",
+						"bg-mono-2/50",
+					)}
+				/>
+				<div className="grid place-items-center">
+					<Progress.Label
+						className={cn(
+							"w-full py-1",
+							"text-center font-semibold",
+							"subtitle",
+						)}
+					>
+						{label}
+					</Progress.Label>
+				</div>
+				<Progress.ValueText />
+
+				<Progress.Circle className="sr-only">
+					<Progress.CircleTrack />
+					<Progress.CircleRange />
+				</Progress.Circle>
+			</Progress.Root>
+		</Portal>
+	);
+}
