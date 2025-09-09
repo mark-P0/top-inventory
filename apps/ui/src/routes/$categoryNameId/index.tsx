@@ -91,9 +91,11 @@ function CategoryScreen() {
 				</Suspense>
 			}
 		>
-			<Suspense fallback={<Loading label="Finding category items..." />}>
-				<ItemTypeList />
-			</Suspense>
+			<ol className="grid lg:grid-cols-5 gap-3">
+				<Suspense fallback={<Loading label="Finding category items..." />}>
+					<ItemTypeListItems />
+				</Suspense>
+			</ol>
 		</Screen>
 	);
 }
@@ -106,19 +108,19 @@ function CategoryScreenTitle() {
 	return category.name;
 }
 
-function ItemTypeList() {
+function ItemTypeListItems() {
 	const { itemTypeItemsPromise } = Route.useLoaderData();
 
 	const itemTypeItems = use(itemTypeItemsPromise);
 
 	return (
-		<ol className="grid lg:grid-cols-5 gap-3">
+		<>
 			{itemTypeItems.map(({ itemType, items }) => (
 				<li key={itemType.uuid}>
 					<ItemTypeCard itemType={itemType} items={items} />
 				</li>
 			))}
-		</ol>
+		</>
 	);
 }
 
