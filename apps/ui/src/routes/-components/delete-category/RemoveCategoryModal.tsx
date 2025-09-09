@@ -1,4 +1,4 @@
-import { removeCategory } from "@/core/api/codegen";
+import { type PublicCategory, removeCategory } from "@/core/api/codegen";
 import { Button } from "@/core/components/Button";
 import {
 	Dialog,
@@ -7,10 +7,51 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/core/components/ark-ui/Dialog";
-import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useDeleteCategoryModalStore } from "./useDeleteCategoryModalStore";
+
+function RemoveCategoryForm(props: {
+	category: PublicCategory;
+	onSuccess?: () => void;
+}) {
+	const { category } = props;
+
+	const form = useForm();
+
+	const deleteCategory = form.handleSubmit(async (formData) => {
+		const result = await removeCategory({
+			headers: {
+				authorization: `Bearer ${formData.mutationToken}`,
+			},
+			path: {
+				uuid: category.uuid,
+			},
+		});
+		if (result.error) {
+			form.setError("root", {
+				message: "Failed removing category",
+			});
+
+			return;
+		}
+
+		props.onSuccess?.();
+	});
+
+	return (
+		<form onSubmit={deleteCategory}>
+			<fieldset disabled={form.formState.isSubmitting} className="space-y-6">
+				<footer className="flex flex-row-reverse">
+					<Button type="submit" intent="danger">
+						Remove
+					</Button>
+				</footer>
+			</fieldset>
+		</form>
+	);
+}
 
 export function RemoveCategoryModal() {
 	const router = useRouter();
@@ -20,32 +61,15 @@ export function RemoveCategoryModal() {
 	const { category } = store;
 	const { reset, closeModal } = store;
 
-	const removeCategoryMutation = useMutation({
-		mutationKey: ["category", category?.uuid],
-		async mutationFn() {
-			if (category === null) {
-				throw new Error("Category not available?");
-			}
-
-			await removeCategory({
-				path: {
-					uuid: category.uuid,
-				},
-			});
-
-			await router.invalidate();
-			closeModal();
-		},
-	});
-
 	useEffect(() => {
 		return () => {
 			reset();
 		};
 	}, [reset]);
 
-	function deleteCategory() {
-		removeCategoryMutation.mutate();
+	function handleFormSuccess() {
+		router.invalidate();
+		closeModal();
 	}
 
 	if (category === null) {
@@ -66,11 +90,7 @@ export function RemoveCategoryModal() {
 					</DialogDescription>
 				</DialogHeader>
 
-				<footer className="flex flex-row-reverse">
-					<Button intent="danger" onClick={deleteCategory}>
-						Remove
-					</Button>
-				</footer>
+				<RemoveCategoryForm category={category} onSuccess={handleFormSuccess} />
 			</DialogContent>
 		</Dialog>
 	);
