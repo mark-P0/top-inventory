@@ -11,6 +11,7 @@ import { cn } from "@/lib/tailwind";
 import { iife } from "@/lib/utils";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { Suspense, use } from "react";
+import { NewItemTypeModal } from "./-components/new-item-type/NewItemTypeModal";
 
 function groupItemTypeItems(category: PublicCategory) {
 	type GroupEntry = {
@@ -92,6 +93,10 @@ function CategoryScreen() {
 			}
 		>
 			<ol className="grid lg:grid-cols-5 gap-3">
+				<li className="size-full">
+					<NewItemTypeModal className="w-full aspect-[4/3]" />
+				</li>
+
 				<Suspense fallback={<Loading label="Finding category items..." />}>
 					<ItemTypeListItems />
 				</Suspense>
